@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Venue location test fixture</title>
+  </head>
+  <body>
+    <div id="valid"></div>
+    <div id="invalid"></div>
+    <script type="module">
+      import { createApp } from 'vue'
+      import VenueLocation from '../../src/templates/BurgundyWedding/components/VenueLocation.vue'
+      import '../../src/templates/BurgundyWedding/styles/tokens.css'
+      import '../../src/templates/BurgundyWedding/styles/venues.css'
+
+      const testUrl = 'https://www.google.com/maps/search/?api=1&query=Test+Venue'
+      createApp(VenueLocation, {
+        venueName: 'Verified test venue',
+        verifiedMapUrl: testUrl,
+      }).mount('#valid')
+      createApp(VenueLocation, {
+        venueName: 'Unverified test venue',
+        verifiedMapUrl: 'https://maps.app.goo.gl.evil.example/test',
+      }).mount('#invalid')
+    </script>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        margin: 0;
+        padding: 3rem;
+        background: #51091b;
+        color: #e8c48c;
+      }
+    </style>
+  </body>
+</html>

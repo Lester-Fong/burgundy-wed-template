@@ -1,0 +1,248 @@
+.closing {
+  --closing-gold: #fbd798;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding-block: clamp(2.75rem, 5vw, 4rem);
+  background: var(--burgundy-dark);
+  color: var(--closing-gold);
+  text-align: center;
+}
+
+.closing__background,
+.closing::before,
+.closing::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.closing__background {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 46%;
+}
+
+.closing::before {
+  z-index: 1;
+  content: '';
+  background: linear-gradient(180deg, rgba(28, 4, 10, 0.72), rgba(35, 4, 13, 0.82));
+}
+
+.closing::after {
+  z-index: 1;
+  inset: clamp(0.75rem, 2vw, 1.5rem);
+  border: 1px solid rgba(251, 215, 152, 0.29);
+  content: '';
+}
+
+.closing__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  width: min(100%, 43rem);
+}
+
+.closing__opening h2 {
+  margin: 0;
+  font-family: 'Italiana', Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.closing__rule {
+  display: block;
+  width: 6rem;
+  height: 1px;
+  margin: 0.9rem auto 1.35rem;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+.closing__opening h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.closing__opening p,
+.closing__intro,
+.closing__message p {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.closing__opening p {
+  max-width: 28rem;
+  margin: 0.35rem auto 0;
+}
+
+.closing__countdown {
+  width: 100%;
+  margin-top: clamp(2rem, 4vw, 3.2rem);
+}
+
+.closing__intro {
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.closing__date {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.closing__timer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 37rem);
+  margin: 1.35rem auto 0;
+}
+
+.closing__unit {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-width: 0;
+}
+
+.closing__unit:not(:last-child)::after {
+  position: absolute;
+  top: 0.05em;
+  right: -0.1em;
+  content: ':';
+  font-family: var(--display);
+  font-size: 3.125rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.closing__unit strong {
+  font-family: var(--display);
+  font-size: 3.125rem;
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+  line-height: 1;
+}
+
+.closing__unit span {
+  margin-top: 0.35rem;
+  font-family: var(--display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.closing__target-note {
+  max-width: 27rem;
+  margin: 1rem auto 0;
+  font-family: var(--display);
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.closing__complete {
+  margin: 1.7rem auto 0;
+  font-family: var(--display);
+  font-size: 1.8rem;
+  font-style: italic;
+}
+
+.closing__message {
+  max-width: 28rem;
+  margin-top: clamp(2rem, 4vw, 3.2rem);
+}
+
+.closing__message p {
+  margin: 0;
+}
+
+.closing__message .closing__deadline {
+  margin-top: 0.45rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .closing {
+    padding-inline: 1.5rem;
+    padding-block: 3.25rem;
+  }
+
+  .closing__opening h3 {
+    font-size: 1.125rem;
+  }
+
+  .closing__opening p,
+  .closing__intro,
+  .closing__message p {
+    font-size: 1rem;
+  }
+
+  .closing__countdown {
+    margin-top: 2.25rem;
+  }
+
+  .closing__timer {
+    margin-top: 1.25rem;
+  }
+
+  .closing__unit strong,
+  .closing__unit:not(:last-child)::after {
+    font-size: clamp(2rem, 10vw, 2.5rem);
+  }
+
+  .closing__unit span {
+    font-size: 0.625rem;
+  }
+
+  .closing__target-note {
+    font-size: 0.8125rem;
+  }
+
+  .closing__message {
+    margin-top: 2.25rem;
+  }
+
+  .closing__message .closing__deadline {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .closing {
+    padding-block: 2.5rem;
+  }
+
+  .closing__opening h2 {
+    font-size: 2.25rem;
+  }
+
+  .closing__rule {
+    margin-block: 0.8rem 1rem;
+  }
+
+  .closing__countdown,
+  .closing__message {
+    margin-top: 2rem;
+  }
+}

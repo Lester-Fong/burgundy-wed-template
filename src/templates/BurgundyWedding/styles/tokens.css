@@ -1,0 +1,23 @@
+:root {
+  --burgundy: #51091b;
+  --burgundy-dark: #290711;
+  --burgundy-light: #721d30;
+  --gold: #e8c48c;
+  --gold-dim: #8a643b;
+  --ivory: #f8f3eb;
+  --paper: #eee5d8;
+  --ink: #3b1c21;
+  --muted: #765e61;
+  --display: 'Cormorant Garamond', Georgia, serif;
+  --body: 'DM Sans', Arial, sans-serif;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --section-pad: clamp(5rem, 9vw, 9rem);
+  --content-width: 1160px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

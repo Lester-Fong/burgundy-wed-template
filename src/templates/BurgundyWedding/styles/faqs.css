@@ -1,0 +1,96 @@
+.faqs {
+  padding-block: clamp(3.75rem, 5.5vw, 5.5rem);
+  color: var(--burgundy);
+}
+
+.faqs__title {
+  margin: 0 auto clamp(2.75rem, 4.2vw, 4rem);
+  font-family: 'Italiana', Georgia, serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.faqs__list {
+  display: grid;
+  gap: clamp(2rem, 3.1vw, 3rem);
+  width: min(100%, 31rem);
+  margin-inline: auto;
+}
+
+.faq__header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.faq__heart {
+  flex: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  color: var(--burgundy);
+}
+
+.faq__question {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.07;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.faq__answer {
+  margin: 0.75rem 0 0;
+  color: var(--burgundy);
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.6;
+}
+
+.faq__answer p {
+  margin: 0;
+}
+
+.faq__answer p + p {
+  margin-top: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .faqs {
+    padding-inline: 1.4rem;
+  }
+
+  .faqs__title {
+    font-size: clamp(1.875rem, 9.8vw, 2.5rem);
+  }
+
+  .faqs__list {
+    gap: 2.25rem;
+  }
+
+  .faq__header {
+    gap: 0.65rem;
+  }
+
+  .faq__heart {
+    width: 0.95rem;
+    height: 0.95rem;
+    margin-top: 0.42rem;
+  }
+
+  .faq__question {
+    font-size: clamp(1.125rem, 5vw, 1.25rem);
+  }
+
+  .faq__answer {
+    margin-top: 0.8rem;
+  }
+}

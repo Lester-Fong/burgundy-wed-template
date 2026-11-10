@@ -1,0 +1,152 @@
+.reminders.section {
+  padding-block: clamp(4.25rem, 5.5vw, 5.5rem);
+  background: var(--burgundy);
+  color: var(--gold);
+}
+
+.reminders__inner {
+  width: min(100%, 1120px);
+  margin-inline: auto;
+}
+
+.reminders__heading {
+  margin: 0 0 clamp(2.7rem, 4vw, 3.5rem);
+  color: var(--gold);
+  font-family: 'Italiana', Georgia, serif;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 400;
+  letter-spacing: 0.015em;
+  line-height: 1.16;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.reminders__heading span {
+  display: block;
+}
+
+.reminders__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.reminder {
+  min-width: 0;
+  text-align: center;
+}
+
+.reminder__ornament {
+  display: block;
+  width: min(100%, 170px);
+  height: auto;
+  margin-inline: auto;
+  object-fit: contain;
+}
+
+.reminder h3 {
+  margin: 1.15rem 0 0.55rem;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.reminder p {
+  max-width: 285px;
+  margin: 0 auto;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.22;
+}
+
+.reminder p + p {
+  margin-top: 1.15rem;
+}
+
+.reminder .reminder__detail {
+  font-weight: 600;
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .reminder__ornament {
+    width: 155px;
+  }
+
+  .reminder h3 {
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (max-width: 767px) {
+  .reminders.section {
+    padding-block: clamp(3.25rem, 6vw, 4.25rem);
+  }
+
+  .reminders__heading {
+    margin-bottom: 2.4rem;
+  }
+
+  .reminders__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.65rem;
+  }
+
+  .reminder {
+    max-width: 430px;
+    margin-inline: auto;
+  }
+
+  .reminder__ornament {
+    width: min(150px, 42vw);
+  }
+
+  .reminder h3 {
+    margin-top: 0.8rem;
+  }
+
+  .reminder p {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 430px) {
+  .reminders.section {
+    padding-inline: 1.2rem;
+    padding-block: 3rem 3.4rem;
+  }
+
+  .reminders__heading {
+    margin-bottom: 2.1rem;
+    font-size: clamp(1.9rem, 8vw, 2.15rem);
+  }
+
+  .reminders__grid {
+    gap: 2.35rem;
+  }
+
+  .reminder__ornament {
+    width: min(138px, 42vw);
+  }
+
+  .reminder h3 {
+    margin-top: 0.7rem;
+    font-size: 1.2rem;
+  }
+
+  .reminder p {
+    font-size: 1.09rem;
+  }
+
+  .reminder p + p {
+    margin-top: 0.85rem;
+  }
+}

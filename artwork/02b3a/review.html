@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>02B.3A Fashion Artwork Specimens</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ivory: #f8f3eb;
+        --burgundy: #51091b;
+        --gold: #bd9367;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--ivory);
+        color: var(--burgundy);
+        font-family: Georgia, 'Times New Roman', serif;
+      }
+      main {
+        max-width: 1180px;
+        margin: auto;
+        padding: clamp(28px, 4vw, 60px) clamp(18px, 4vw, 48px) 68px;
+      }
+      header {
+        margin-bottom: 26px;
+        text-align: center;
+      }
+      .eyebrow {
+        margin: 0 0 7px;
+        color: #8d5b54;
+        font:
+          600 11px/1.4 Arial,
+          sans-serif;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 4.8vw, 52px);
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        line-height: 1.1;
+      }
+      header p:last-child {
+        margin: 12px auto 0;
+        max-width: 620px;
+        font-size: 16px;
+        font-style: italic;
+        line-height: 1.45;
+      }
+      .specimens {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(16px, 3vw, 42px);
+        align-items: start;
+      }
+      figure {
+        min-width: 0;
+        margin: 0;
+        text-align: center;
+      }
+      .art {
+        display: grid;
+        min-height: 470px;
+        place-items: center;
+        border: 1px solid #b892742e;
+        background: #f7f2e9;
+      }
+      .art img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: min(65vw, 690px);
+        min-height: 430px;
+        object-fit: contain;
+      }
+      figcaption {
+        padding: 16px 4px 0;
+      }
+      figcaption strong {
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+      }
+      figcaption span {
+        display: block;
+        margin-top: 3px;
+        color: #7b5b52;
+        font-size: 14px;
+      }
+      .swatch {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        margin-right: 5px;
+        border: 1px solid #422d2630;
+        border-radius: 50%;
+        vertical-align: -1px;
+      }
+      .scale-check {
+        margin: 42px auto 0;
+        padding-top: 22px;
+        border-top: 1px solid #b8927455;
+        text-align: center;
+      }
+      .scale-check h2 {
+        margin: 0 0 4px;
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .scale-check p {
+        margin: 0 0 10px;
+        color: #7b5b52;
+        font-size: 13px;
+        font-style: italic;
+      }
+      .small-figures {
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        gap: 18px;
+      }
+      .small-figures img {
+        display: block;
+        width: 112px;
+        height: 168px;
+        object-fit: contain;
+      }
+      @media (max-width: 620px) {
+        main {
+          padding-bottom: 42px;
+        }
+        header {
+          margin-bottom: 18px;
+        }
+        .specimens {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .art {
+          min-height: 0;
+        }
+        .art img {
+          width: min(100%, 280px);
+          height: auto;
+          min-height: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Original artwork · proof of concept</p>
+        <h1>Fashion Illustration Specimens</h1>
+        <p>
+          Two isolated style studies for owner approval before any replacement of the current Attire Guide
+          artwork.
+        </p>
+      </header>
+      <div class="specimens">
+        <figure>
+          <div class="art">
+            <img
+              src="gown-taupe-watercolor.png"
+              width="1024"
+              height="1536"
+              alt="Painterly full-length fashion illustration of a woman in a flowing taupe formal gown"
+            />
+          </div>
+          <figcaption>
+            <strong>Formal gown</strong>
+            <span
+              ><i class="swatch" style="background: #a67c5e" aria-hidden="true"></i>Taupe Brown ·
+              #A67C5E</span
+            >
+          </figcaption>
+        </figure>
+        <figure>
+          <div class="art">
+            <img
+              src="suit-mocha-watercolor.png"
+              width="1024"
+              height="1536"
+              alt="Painterly full-length fashion illustration of a man in a tailored deep mocha formal suit"
+            />
+          </div>
+          <figcaption>
+            <strong>Tailored suit</strong>
+            <span
+              ><i class="swatch" style="background: #4c3626" aria-hidden="true"></i>Deep Mocha · #4C3626</span
+            >
+          </figcaption>
+        </figure>
+      </div>
+      <section class="scale-check" aria-labelledby="scale-title">
+        <h2 id="scale-title">Small-size check</h2>
+        <p>Each figure at 112px wide, near the existing desktop lineup size.</p>
+        <div class="small-figures">
+          <img
+            src="gown-taupe-watercolor.png"
+            width="112"
+            height="168"
+            alt="Taupe gown at small lineup size"
+          />
+          <img
+            src="suit-mocha-watercolor.png"
+            width="112"
+            height="168"
+            alt="Deep mocha suit at small lineup size"
+          />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

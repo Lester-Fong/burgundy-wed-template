@@ -1,0 +1,167 @@
+.gifts.section {
+  display: grid;
+  min-height: 80svh;
+  min-height: 80dvh;
+  align-items: center;
+  padding-block: clamp(1rem, 3dvh, 2.5rem);
+  background: #f5f1eb;
+  color: var(--burgundy);
+  text-align: center;
+}
+
+.gifts__inner {
+  display: grid;
+  width: min(100%, 1120px);
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  margin-inline: auto;
+}
+
+.gifts__heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.gifts__art {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+}
+
+.gifts__art img {
+  width: min(100%, 55dvh, 440px);
+  height: auto;
+  object-fit: contain;
+}
+
+.gifts__content {
+  min-width: 0;
+  max-width: 535px;
+  margin-inline: auto;
+}
+
+.gifts__message {
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 1.8vw, 1.48rem);
+  line-height: 1.24;
+}
+
+.gifts__message p {
+  margin: 0;
+}
+
+.gifts__message p + p {
+  margin-top: clamp(0.7rem, 2dvh, 1.35rem);
+}
+
+.gifts__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 128px));
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  margin-top: clamp(1rem, 3dvh, 1.8rem);
+}
+
+.gifts__option {
+  min-width: 0;
+}
+
+.gifts__option h3 {
+  margin: 0 0 0.55rem;
+  font-family: var(--body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.gifts__qr-square {
+  display: grid;
+  width: min(100%, 110px);
+  aspect-ratio: 1;
+  place-items: center;
+  margin-inline: auto;
+  border: 1px solid #b79481a3;
+  background: #fffaf3b8;
+}
+
+.gifts__qr-square svg {
+  width: 40px;
+  height: 40px;
+  stroke: #9c6e5d;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.4;
+}
+
+.gifts__qr-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gifts__pending {
+  margin: 0.42rem 0 0;
+  font-family: var(--body);
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 850px) {
+  .gifts.section {
+    padding-inline: 1.25rem;
+    padding-block: clamp(0.85rem, 2dvh, 1.5rem);
+  }
+
+  .gifts__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(0.4rem, 1.2dvh, 0.8rem);
+  }
+
+  .gifts__art img {
+    width: min(64vw, 30dvh, 320px);
+  }
+
+  .gifts__message {
+    font-size: clamp(1.14rem, 2.45vw, 1.38rem);
+    line-height: 1.2;
+  }
+
+  .gifts__message p + p {
+    margin-top: clamp(0.4rem, 1.2dvh, 0.8rem);
+  }
+
+  .gifts__options {
+    gap: 1rem;
+    margin-top: clamp(0.6rem, 1.7dvh, 1rem);
+  }
+
+  .gifts__qr-square {
+    width: min(100%, 12dvh, 110px);
+  }
+}
+
+@media (max-width: 359px) {
+  .gifts.section {
+    padding-inline: 1rem;
+  }
+
+  .gifts__art img {
+    width: min(61vw, 28dvh);
+  }
+
+  .gifts__message {
+    font-size: 1.08rem;
+  }
+
+  .gifts__option h3,
+  .gifts__pending {
+    font-size: 0.6rem;
+  }
+}

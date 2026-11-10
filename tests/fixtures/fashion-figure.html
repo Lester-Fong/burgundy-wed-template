@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fashion figure color fixture</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 24px;
+        background: #f7f2e9;
+        font-family: Georgia, serif;
+      }
+      .comparison,
+      .variants {
+        display: flex;
+        align-items: end;
+        gap: 26px;
+      }
+      .comparison .fashion-figure {
+        width: 140px;
+      }
+      .variants .fashion-figure {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>One gown, two color configurations</h1>
+    <div id="app"></div>
+    <script type="module">
+      import { createApp, h, ref } from 'vue'
+      import FashionFigure from '/src/templates/BurgundyWedding/components/FashionFigure.vue'
+      import '/src/templates/BurgundyWedding/styles/attire.css'
+
+      const firstColor = ref('#A67C5E')
+      window.setOutfitColor = (value) => (firstColor.value = value)
+      createApp({
+        setup() {
+          return () =>
+            h('main', [
+              h('div', { class: 'comparison' }, [
+                h(FashionFigure, {
+                  variant: 'gown',
+                  colors: { primary: firstColor.value, secondary: '#DCC7A4' },
+                  label: 'Configurable taupe gown',
+                }),
+                h(FashionFigure, {
+                  variant: 'gown',
+                  colors: { primary: '#C9B4E4', secondary: '#DCC7A4' },
+                  label: 'Lavender configuration of the same gown',
+                }),
+              ]),
+              h('h2', 'Four garment variants'),
+              h('div', { class: 'variants' }, [
+                h(FashionFigure, {
+                  variant: 'gown',
+                  colors: { primary: '#A67C5E' },
+                  label: 'Formal gown',
+                }),
+                h(FashionFigure, {
+                  variant: 'cocktail-dress',
+                  colors: { primary: '#F9E79F' },
+                  label: 'Cocktail dress',
+                }),
+                h(FashionFigure, {
+                  variant: 'suit',
+                  colors: { primary: '#A7A7A7' },
+                  label: 'Formal suit',
+                }),
+                h(FashionFigure, {
+                  variant: 'barong',
+                  colors: { primary: '#4C3626' },
+                  label: 'Barong styling',
+                }),
+              ]),
+            ])
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>

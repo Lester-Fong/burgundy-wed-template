@@ -1,0 +1,33 @@
+{
+  "name": "wedding-client-burgundy",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "qa:browser": "node scripts/browser-qa.mjs",
+    "format": "prettier --write src scripts tests index.html vite.config.ts tsconfig.json package.json README.md",
+    "format:check": "prettier --check src scripts tests index.html vite.config.ts tsconfig.json package.json README.md",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.2.8",
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/italiana": "^5.2.8",
+    "qrcode": "^1.5.4",
+    "vue": "^3.5.22"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "jsqr": "^1.4.0",
+    "playwright-core": "^1.64.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12",
+    "vue-tsc": "^3.1.0"
+  }
+}

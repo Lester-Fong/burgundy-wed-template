@@ -91,6 +91,7 @@ export const weddingContent: WeddingContent = {
       {
         id: 'wedding-party',
         layout: 'paired',
+        description: 'To share in the joy of our celebration',
         columns: [
           {
             heading: 'Groomsmen',
@@ -123,6 +124,7 @@ export const weddingContent: WeddingContent = {
         id: 'secondary-sponsors',
         layout: 'chapter',
         heading: 'Secondary sponsors',
+        description: 'To witness and support our union',
         roles: [
           { heading: 'Veil sponsors', people: [{ name: 'Yho Guro' }, { name: 'Ethelmira Guro' }] },
           {
@@ -139,6 +141,7 @@ export const weddingContent: WeddingContent = {
         id: 'bearers',
         layout: 'chapter',
         heading: 'Little bearers',
+        description: 'To carry the symbols of our ceremony with care',
         roles: [
           { heading: 'Ring bearer', people: [{ name: 'Elin Noah Abad' }] },
           { heading: 'Bible bearer', people: [{ name: 'Ervie Ann Cosio' }] },

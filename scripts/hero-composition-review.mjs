@@ -35,7 +35,7 @@ for (const viewport of viewports) {
   await page.goto(process.env.WEDDING_QA_URL ?? 'http://127.0.0.1:4173/', {
     waitUntil: 'networkidle',
   })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.locator('.hero__image').evaluate(async (image) => {
     await image.decode()

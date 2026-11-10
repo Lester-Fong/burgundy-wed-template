@@ -38,7 +38,7 @@ for (const [width, height] of widths) {
   await page.goto(process.env.WEDDING_QA_URL ?? 'http://127.0.0.1:4173/', {
     waitUntil: 'networkidle',
   })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.evaluate(async () => {
     await document.fonts.ready
@@ -142,7 +142,7 @@ if (phase === 'after') {
   await page.goto(process.env.WEDDING_QA_URL ?? 'http://127.0.0.1:4173/', {
     waitUntil: 'networkidle',
   })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   const panel = page.locator('.venue-panel').first()
   const initialOpacity = await panel.evaluate((element) => getComputedStyle(element).opacity)
@@ -159,7 +159,7 @@ if (phase === 'after') {
   await fallbackPage.goto(process.env.WEDDING_QA_URL ?? 'http://127.0.0.1:4173/', {
     waitUntil: 'networkidle',
   })
-  await fallbackPage.getByRole('button', { name: 'Enter without music' }).click()
+  await fallbackPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await fallbackPage.locator('.intro').waitFor({ state: 'detached' })
   const fallbackOpacity = await fallbackPage
     .locator('.venue-panel')

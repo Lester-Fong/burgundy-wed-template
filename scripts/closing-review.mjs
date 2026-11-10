@@ -28,7 +28,7 @@ for (const [width, height] of sizes) {
   const page = await context.newPage()
   page.on('pageerror', (error) => failures.push(`${width}px page error: ${error.message}`))
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.evaluate(async () => {
     await document.fonts.ready
@@ -125,7 +125,7 @@ for (const [time, expected] of [
   const page = await context.newPage()
   await page.clock.install({ time: new Date(time) })
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   const message = await page.locator('.closing__complete').textContent()
   if (message?.trim() !== expected) failures.push(`${time}: completed state was ${message}`)

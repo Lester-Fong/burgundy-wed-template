@@ -32,7 +32,7 @@ for (const [width, height] of sizes) {
   const page = await context.newPage()
   page.on('pageerror', (error) => failures.push(`${width}px page error: ${error.message}`))
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.evaluate(() => document.fonts.ready)
   const faq = page.locator('.faqs')
@@ -129,7 +129,7 @@ if (mode === 'after') {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } })
   const page = await context.newPage()
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   const item = page.locator('.faqs .faq').first()
   const initialOpacity = await item.evaluate((element) => getComputedStyle(element).opacity)
@@ -144,7 +144,7 @@ if (mode === 'after') {
     window.IntersectionObserver = undefined
   })
   await fallbackPage.goto(baseURL, { waitUntil: 'networkidle' })
-  await fallbackPage.getByRole('button', { name: 'Enter without music' }).click()
+  await fallbackPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await fallbackPage.locator('.intro').waitFor({ state: 'detached' })
   const fallbackOpacity = await fallbackPage
     .locator('.faqs .faq')

@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { countdownTo } from '../src/utils/dates.ts'
+import { countdownTo, formatInvitationDate } from '../src/utils/dates.ts'
 import { safeExternalUrl, safeGoogleMapsUrl } from '../src/utils/links.ts'
 
 test('countdown uses the exact offset instant and handles completion', () => {
@@ -15,6 +15,12 @@ test('countdown uses the exact offset instant and handles completion', () => {
   })
   assert.equal(countdownTo(target, Date.parse(target)).complete, true)
   assert.equal(countdownTo('invalid', before).complete, true)
+})
+
+test('invitation date follows the canonical ISO date', () => {
+  assert.equal(formatInvitationDate('2027-02-22'), '02 · 22 · 27')
+  assert.equal(formatInvitationDate('2028-11-09'), '11 · 09 · 28')
+  assert.equal(formatInvitationDate('pending'), 'pending')
 })
 
 test('external links accept only absolute HTTPS destinations', () => {

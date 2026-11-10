@@ -50,8 +50,10 @@ for (const width of widths) {
     failures.push(`${width}px: envelope scrolls despite standard viewport height`)
   if (introFit.scrollWidth > introFit.clientWidth + 1 || introFit.namesOverflow)
     failures.push(`${width}px: envelope has horizontal overflow`)
+  if (await page.locator('audio').evaluate((element) => !element.paused))
+    failures.push(`${width}px: music started before opening gesture`)
   if (width === 390) await page.screenshot({ path: join(screenshotPath, 'intro-390.png') })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.getByRole('main').waitFor({ state: 'visible' })
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.evaluate(async () => {
@@ -132,14 +134,6 @@ for (const width of widths) {
       .locator('#welcome-title')
       .evaluate((element) => getComputedStyle(element).opacity)
     if (welcomeOpacity !== '1') failures.push('Reduced-motion welcome heading was hidden')
-    const quietPlayerState = await page
-      .getByRole('button', { name: 'Play background music' })
-      .getAttribute('aria-pressed')
-    if (quietPlayerState !== 'false') failures.push('Quiet entry started music')
-    const quietWelcomeState = await page
-      .getByRole('button', { name: 'Play our song' })
-      .getAttribute('aria-pressed')
-    if (quietWelcomeState !== 'false') failures.push('Quiet entry changed welcome music state')
   }
   await context.close()
   console.log(
@@ -154,7 +148,7 @@ const interactionContext = await browser.newContext({
 const interactionPage = await interactionContext.newPage()
 interactionPage.on('pageerror', (error) => errors.push(`interaction: ${error.message}`))
 await interactionPage.goto(baseURL, { waitUntil: 'networkidle' })
-const openButton = interactionPage.getByRole('button', { name: 'Open our invitation' })
+const openButton = interactionPage.getByRole('button', { name: 'Open wedding invitation and play music' })
 await openButton.focus()
 await interactionPage.keyboard.press('Enter')
 await interactionPage.locator('.intro').waitFor({ state: 'detached' })
@@ -212,7 +206,7 @@ if (!(await interactionPage.getByRole('status').getByText('Music is unavailable 
   failures.push('Welcome music error was not surfaced')
 const envelopePage = await interactionContext.newPage()
 await envelopePage.goto(baseURL, { waitUntil: 'networkidle' })
-await envelopePage.getByRole('button', { name: 'Open the envelope with music' }).focus()
+await envelopePage.getByRole('button', { name: 'Open wedding invitation and play music' }).focus()
 await envelopePage.keyboard.press('Space')
 await envelopePage.locator('.intro').waitFor({ state: 'detached' })
 if (
@@ -230,10 +224,10 @@ for (const { width, height, label } of [
   const context = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce' })
   const page = await context.newPage()
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  const skip = page.getByRole('button', { name: 'Enter without music' })
-  await skip.scrollIntoViewIfNeeded()
-  if (!(await skip.isVisible())) failures.push(`${label}: skip action unreachable`)
-  await skip.click()
+  const opener = page.getByRole('button', { name: 'Open wedding invitation and play music' })
+  await opener.scrollIntoViewIfNeeded()
+  if (!(await opener.isVisible())) failures.push(`${label}: opening action unreachable`)
+  await opener.click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await context.close()
 }
@@ -241,7 +235,7 @@ for (const { width, height, label } of [
 const revealContext = await browser.newContext({ viewport: { width: 390, height: 844 } })
 const revealPage = await revealContext.newPage()
 await revealPage.goto(baseURL, { waitUntil: 'networkidle' })
-await revealPage.getByRole('button', { name: 'Enter without music' }).click()
+await revealPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
 await revealPage.locator('.intro').waitFor({ state: 'detached' })
 const revealHeading = revealPage.locator('#entourage-title')
 const welcomeHeading = revealPage.locator('#welcome-title')
@@ -293,7 +287,7 @@ await fallbackPage.addInitScript(() => {
   window.IntersectionObserver = undefined
 })
 await fallbackPage.goto(baseURL, { waitUntil: 'networkidle' })
-await fallbackPage.getByRole('button', { name: 'Enter without music' }).click()
+await fallbackPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
 await fallbackPage.locator('.intro').waitFor({ state: 'detached' })
 const fallbackOpacity = await fallbackPage
   .locator('#entourage-title')

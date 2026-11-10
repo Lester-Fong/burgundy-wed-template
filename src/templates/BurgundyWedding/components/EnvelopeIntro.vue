@@ -1,66 +1,113 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { WeddingContent } from '../../../types/wedding'
-import Ornament from './Ornament.vue'
+import { formatInvitationDate } from '../../../utils/dates'
 
-defineProps<{ couple: WeddingContent['couple']; date: WeddingContent['date'] }>()
+const props = defineProps<{ couple: WeddingContent['couple']; date: WeddingContent['date'] }>()
 const emit = defineEmits<{ open: [withMusic: boolean]; finish: [] }>()
+const compactDate = computed(() => formatInvitationDate(props.date.iso))
+const typedDate = ref('')
 const opening = ref(false)
+const revealed = ref(false)
+let typingFrame: number | undefined
+let finishTimer: number | undefined
+let revealFallback: number | undefined
+let motionPreference: MediaQueryList | undefined
 
-function begin(withMusic: boolean) {
+function showCompleteIntro() {
+  if (typingFrame !== undefined) window.cancelAnimationFrame(typingFrame)
+  typedDate.value = compactDate.value
+  revealed.value = true
+}
+
+function handleMotionChange(event: MediaQueryListEvent) {
+  if (event.matches) showCompleteIntro()
+}
+
+onMounted(() => {
+  motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+  motionPreference.addEventListener('change', handleMotionChange)
+  if (motionPreference.matches) {
+    showCompleteIntro()
+    return
+  }
+
+  const characterEnds = [...compactDate.value.matchAll(/[0-9·]/g)].map((match) => match.index + 1)
+  const startedAt = performance.now()
+  function typeDate(now: number) {
+    const count = Math.min(
+      characterEnds.length,
+      Math.floor(((now - startedAt) / 1750) * characterEnds.length),
+    )
+    typedDate.value = count ? compactDate.value.slice(0, characterEnds[count - 1]) : ''
+    if (count < characterEnds.length) typingFrame = window.requestAnimationFrame(typeDate)
+  }
+  typingFrame = window.requestAnimationFrame(typeDate)
+  revealFallback = window.setTimeout(showCompleteIntro, 3400)
+})
+
+onBeforeUnmount(() => {
+  if (typingFrame !== undefined) window.cancelAnimationFrame(typingFrame)
+  if (finishTimer !== undefined) window.clearTimeout(finishTimer)
+  if (revealFallback !== undefined) window.clearTimeout(revealFallback)
+  motionPreference?.removeEventListener('change', handleMotionChange)
+})
+
+function begin() {
   if (opening.value) return
   opening.value = true
-  emit('open', withMusic)
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  window.setTimeout(() => emit('finish'), reduced ? 50 : 780)
+  showCompleteIntro()
+  emit('open', true)
+  finishTimer = window.setTimeout(() => emit('finish'), motionPreference?.matches ? 50 : 780)
 }
 </script>
 
 <template>
   <div
     class="intro"
-    :class="{ 'intro--opening': opening }"
+    :class="{ 'intro--opening': opening, 'intro--revealed': revealed }"
     role="dialog"
     aria-modal="true"
     aria-label="Open wedding invitation"
   >
-    <div class="intro__grain" aria-hidden="true"></div>
     <div class="intro__inner">
       <div class="intro__masthead">
-        <p class="eyebrow intro__eyebrow">The wedding invitation</p>
         <h1 class="intro__names">
-          <span class="intro__name">{{ couple.first }}</span>
+          <span>{{ couple.first }}</span>
           <span class="intro__amp">&</span>
-          <span class="intro__name">{{ couple.second }}</span>
+          <span>{{ couple.second }}</span>
         </h1>
-        <p class="intro__date">{{ date.display }}</p>
-        <Ornament />
+        <time class="intro__date" :datetime="date.iso" :data-full-date="compactDate">
+          <span class="intro__sr-only">{{ date.display }}</span>
+          <span class="intro__date-visible" aria-hidden="true">{{ typedDate }}</span>
+        </time>
       </div>
-      <div class="intro__stage">
-        <svg class="intro__botanical" viewBox="0 0 500 300" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <path
-              d="M32 273C68 222 66 158 111 112c18-18 39-30 68-42M48 252c17-24 41-31 62-36M72 196c-1-30 12-55 30-73M107 137c9-29 28-48 50-63"
-            />
-            <path
-              d="M468 273c-36-51-34-115-79-161-18-18-39-30-68-42m131 182c-17-24-41-31-62-36m38-20c1-30-12-55-30-73m-5 14c-9-29-28-48-50-63"
-            />
-            <path
-              d="M63 234c-18-4-31-19-32-34 17 1 29 10 32 34Zm21-59c-14-11-20-26-15-40 14 6 20 20 15 40Zm35-69c-13-15-14-31-6-43 13 10 16 25 6 43Zm18 109c6-20 20-32 37-34-3 18-16 30-37 34Z"
-            />
-            <path
-              d="M437 234c18-4 31-19 32-34-17 1-29 10-32 34Zm-21-59c14-11 20-26 15-40-14 6-20 20-15 40Zm-35-69c13-15 14-31 6-43-13 10-16 25-6 43Zm-18 109c-6-20-20-32-37-34 3 18 16 30 37 34Z"
-            />
-          </g>
-        </svg>
-        <button
-          class="intro__envelope-button"
-          type="button"
-          :disabled="opening"
-          aria-label="Open the envelope with music"
-          @click="begin(true)"
-        >
-          <span class="envelope" aria-hidden="true">
+
+      <button
+        class="intro__open"
+        type="button"
+        :aria-disabled="opening"
+        aria-label="Open wedding invitation and play music"
+        @click="begin"
+      >
+        <span class="intro__stage" aria-hidden="true">
+          <span class="intro__cartouche"></span>
+          <img
+            class="intro__florals intro__florals--left"
+            src="/images/template/intro-florals.webp"
+            alt=""
+            width="960"
+            height="640"
+            fetchpriority="high"
+          />
+          <img
+            class="intro__florals intro__florals--right"
+            src="/images/template/intro-florals.webp"
+            alt=""
+            width="960"
+            height="640"
+          />
+          <span class="envelope">
             <span class="envelope__back"></span>
             <span class="envelope__letter"
               ><span>TOGETHER<br />FOREVER</span></span
@@ -69,26 +116,9 @@ function begin(withMusic: boolean) {
             <span class="envelope__front"></span>
             <span class="envelope__seal">{{ couple.monogram }}</span>
           </span>
-        </button>
-      </div>
-      <div class="intro__actions">
-        <button
-          class="button button--gold intro__button"
-          type="button"
-          :disabled="opening"
-          @click="begin(true)"
-        >
-          <span>Open our invitation</span><span aria-hidden="true">↗</span>
-        </button>
-        <p class="intro__sound-note">A short instrumental preview will begin</p>
-        <button class="intro__skip" type="button" :disabled="opening" @click="begin(false)">
-          Enter without music
-        </button>
-      </div>
+        </span>
+        <span class="intro__prompt">Tap to open</span>
+      </button>
     </div>
-    <span class="intro__corner intro__corner--tl" aria-hidden="true"></span>
-    <span class="intro__corner intro__corner--tr" aria-hidden="true"></span>
-    <span class="intro__corner intro__corner--bl" aria-hidden="true"></span>
-    <span class="intro__corner intro__corner--br" aria-hidden="true"></span>
   </div>
 </template>

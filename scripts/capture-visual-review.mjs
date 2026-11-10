@@ -43,7 +43,7 @@ for (const { label, width, height } of [
   await page.goto(baseURL, { waitUntil: 'networkidle' })
   await page.evaluate(() => document.fonts.ready)
   await page.screenshot({ path: join(folder, `envelope-${label}.png`) })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.locator('.hero__image').evaluate((image) => image.decode())
   await page.locator('.hero').screenshot({ path: join(folder, `hero-${label}.png`) })
@@ -112,7 +112,7 @@ if (phase === 'after') {
   const context = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 })
   const page = await context.newPage()
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   const heading = page.locator('#entourage-title')
   const initial = await heading.evaluate((element) => ({

@@ -19,18 +19,7 @@ const browser = await chromium.launch({
 })
 
 const widths = [320, 390, 430, 768, 1024, 1440, 1920]
-const expectedOrder = [
-  'bride-parents',
-  'groom-parents',
-  'remembrance',
-  'representatives',
-  'principal-sponsors',
-  'secondary-sponsors',
-  'honor-attendants',
-  'wedding-party',
-  'ceremony-readers',
-  'bearers',
-]
+const expectedOrder = ['honor-attendants', 'wedding-party', 'secondary-sponsors', 'bearers']
 const results = []
 const failures = []
 
@@ -58,7 +47,7 @@ for (const width of widths) {
   const pageErrors = []
   page.on('pageerror', (error) => pageErrors.push(error.message))
   await page.goto(baseURL, { waitUntil: 'networkidle' })
-  await page.getByRole('button', { name: 'Enter without music' }).click()
+  await page.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
   await page.locator('.intro').waitFor({ state: 'detached' })
   await page.evaluate(() => document.fonts.ready)
 
@@ -139,24 +128,24 @@ for (const width of widths) {
       page,
       `desktop-heading-parents-${width}.png`,
       '#entourage',
-      '[data-entourage-id="groom-parents"]',
+      '[data-entourage-id="honor-attendants"]',
       0,
       26,
     )
     await captureRange(
       page,
-      `desktop-principal-sponsors-${width}.png`,
-      '[data-entourage-id="principal-sponsors"]',
-      '[data-entourage-id="principal-sponsors"]',
+      `desktop-wedding-party-${width}.png`,
+      '[data-entourage-id="wedding-party"]',
+      '[data-entourage-id="wedding-party"]',
       45,
       45,
     )
     if (width === 1440)
       await captureRange(
         page,
-        'desktop-secondary-party-1440.png',
+        'desktop-secondary-bearers-1440.png',
         '[data-entourage-id="secondary-sponsors"]',
-        '[data-entourage-id="wedding-party"]',
+        '[data-entourage-id="bearers"]',
         35,
         35,
       )
@@ -168,7 +157,7 @@ for (const width of widths) {
     })
     await page.screenshot({ path: join(folder, 'comparison-local-1920.png') })
     await page.evaluate(() => {
-      const sponsors = document.querySelector('[data-entourage-id="principal-sponsors"]')
+      const sponsors = document.querySelector('[data-entourage-id="wedding-party"]')
       window.scrollTo(0, sponsors.getBoundingClientRect().top + scrollY - 130)
     })
     await page.screenshot({ path: join(folder, 'comparison-sponsors-local-1920.png') })
@@ -178,7 +167,7 @@ for (const width of widths) {
       page,
       'mobile-upper-390.png',
       '#entourage',
-      '[data-entourage-id="principal-sponsors"]',
+      '[data-entourage-id="wedding-party"]',
       0,
       25,
     )
@@ -208,14 +197,14 @@ for (const width of widths) {
 const motionContext = await browser.newContext({ viewport: { width: 390, height: 844 } })
 const motionPage = await motionContext.newPage()
 await motionPage.goto(baseURL, { waitUntil: 'networkidle' })
-await motionPage.getByRole('button', { name: 'Enter without music' }).click()
+await motionPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
 await motionPage.locator('.intro').waitFor({ state: 'detached' })
-const principalGroup = motionPage.locator('[data-entourage-id="principal-sponsors"]')
+const principalGroup = motionPage.locator('[data-entourage-id="wedding-party"]')
 const pendingOpacity = await principalGroup.evaluate((element) => getComputedStyle(element).opacity)
 if (pendingOpacity !== '0') failures.push(`Entourage category reveal started at opacity ${pendingOpacity}`)
 await principalGroup.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }))
 await motionPage.waitForFunction(
-  () => getComputedStyle(document.querySelector('[data-entourage-id="principal-sponsors"]')).opacity === '1',
+  () => getComputedStyle(document.querySelector('[data-entourage-id="wedding-party"]')).opacity === '1',
 )
 const shownOpacity = await principalGroup.evaluate((element) => getComputedStyle(element).opacity)
 if (shownOpacity !== '1') failures.push(`Entourage category reveal ended at opacity ${shownOpacity}`)
@@ -227,10 +216,10 @@ await fallbackPage.addInitScript(() => {
   window.IntersectionObserver = undefined
 })
 await fallbackPage.goto(baseURL, { waitUntil: 'networkidle' })
-await fallbackPage.getByRole('button', { name: 'Enter without music' }).click()
+await fallbackPage.getByRole('button', { name: 'Open wedding invitation and play music' }).click()
 await fallbackPage.locator('.intro').waitFor({ state: 'detached' })
 const fallbackOpacity = await fallbackPage
-  .locator('[data-entourage-id="principal-sponsors"]')
+  .locator('[data-entourage-id="wedding-party"]')
   .evaluate((element) => getComputedStyle(element).opacity)
 if (fallbackOpacity !== '1') failures.push('Entourage category hidden without IntersectionObserver')
 await fallbackContext.close()

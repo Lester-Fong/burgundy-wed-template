@@ -16,14 +16,14 @@ defineProps<{ content: NonNullable<WeddingContent['attire']> }>()
 
       <div class="attire__groups">
         <section
-          v-if="content.partyLooks.length || content.partyColors.length"
-          class="attire__group"
-          aria-labelledby="attire-party-title"
+          v-if="content.sponsorLooks.length || content.sponsorColors.length"
+          class="attire__group attire__group--sponsors"
+          aria-labelledby="attire-sponsors-title"
         >
-          <h3 id="attire-party-title">{{ content.partyHeading }}</h3>
-          <p class="attire__group-intro">{{ content.partyCaption }}</p>
-          <div v-if="content.partyLooks.length" class="attire__lineup attire__lineup--party">
-            <figure v-for="look in content.partyLooks" :key="look.id" class="attire__look">
+          <h3 id="attire-sponsors-title">{{ content.sponsorHeading }}</h3>
+          <p class="attire__group-intro">{{ content.sponsorCaption }}</p>
+          <div v-if="content.sponsorLooks.length" class="attire__lineup attire__lineup--sponsors">
+            <figure v-for="look in content.sponsorLooks" :key="look.id" class="attire__look">
               <img
                 :src="look.illustration.src"
                 :alt="look.illustration.alt"
@@ -35,13 +35,13 @@ defineProps<{ content: NonNullable<WeddingContent['attire']> }>()
             </figure>
           </div>
           <section
-            v-if="content.partyColors.length"
+            v-if="content.sponsorColors.length"
             class="attire__assignments"
             aria-labelledby="attire-assignments-title"
           >
-            <h4 id="attire-assignments-title">Wedding Party Color Assignments</h4>
+            <h4 id="attire-assignments-title">Principal Sponsor Colors</h4>
             <div class="attire__legend">
-              <div v-for="item in content.partyColors" :key="item.role" class="attire__legend-item">
+              <div v-for="item in content.sponsorColors" :key="item.role" class="attire__legend-item">
                 <span
                   class="attire__legend-dot"
                   :style="{ backgroundColor: safeHexColor(item.color.hex) }"

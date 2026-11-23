@@ -18,6 +18,9 @@ defineEmits<{ toggleMusic: [] }>()
       <h2 id="welcome-title" class="welcome__heading" data-welcome-reveal="0">
         {{ content.heading }}
       </h2>
+      <p v-if="content.subtitle" class="welcome__subtitle" data-welcome-reveal="0">
+        {{ content.subtitle }}
+      </p>
       <div class="welcome__ornament" data-welcome-reveal="1">
         <Ornament />
       </div>

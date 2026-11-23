@@ -39,59 +39,94 @@ test('confirmed couple, date, venues, and pending wedding time are represented a
   assert.doesNotMatch(JSON.stringify(weddingContent), /Amelia|Gabriel|Conservatory Chapel|Garden Ballroom/)
 })
 
-test('provisional entourage names remain independently ordered and unsupported roles are omitted', () => {
+test('latest client entourage roster keeps parent, sponsor, attendant, and ceremonial roles in order', () => {
   const groups = weddingContent.entourage.groups
+  const singleNames = (id) => groups.find((group) => group.id === id).people.map((person) => person.name)
+  assert.deepEqual(singleNames('groom-parents'), ['Mr. Erwin Cosio', 'Mrs. Consuelo Cosio'])
+  assert.deepEqual(singleNames('bride-father'), ['Mr. Jayson Cepillo'])
+  assert.deepEqual(singleNames('bride-mother-memory'), ['Mrs. Liza Ramos'])
+  assert.deepEqual(singleNames('bride-representative'), ['Mrs. Kcenia Zarate'])
+  assert.equal(
+    groups.find((group) => group.id === 'bride-representative').description,
+    'To be represented and escorted by',
+  )
   const pairNames = (id, side) =>
     groups.find((group) => group.id === id).columns[side].people.map((person) => person.name)
+  assert.deepEqual(pairNames('principal-sponsors', 0), [
+    'Mr. Calvin Hackett',
+    'Mr. Mario Moncado',
+    'Mr. Arman Diamos',
+    'Mr. Russel Ramos',
+    'Mr. Benjie Gamayo',
+    'Mr. Rolly Ramos',
+    'Mr. Ariel Calimbas',
+    'Mr. Prince Edionne Solomon',
+    'Mr. Allain John Colcol',
+    'Mr. Jened Catindig',
+    'Mr. Jessie Cabral',
+    'Mr. Ingvar Simonsson',
+    'Mr. BJ Gagui',
+    'Mr. Larry Parsons',
+    'Mr. Angel Madlangbayan',
+    'Mr. Belermino Montanez',
+    'Mr. George Claton',
+  ])
+  assert.deepEqual(pairNames('principal-sponsors', 1), [
+    'Mrs. Eleonor Hackett',
+    'Mrs. Vilma Moncada',
+    'Mrs. Cinderella Diamos',
+    'Mrs. Luzviminda Sanchez',
+    'Mrs. Merlinda Ramos',
+    'Mrs. Lhavz Ramos',
+    'Mrs. Irene Calimbas',
+    'Mrs. Efvi Frances Martinez',
+    'Mrs. Cristy Recio',
+    'Mrs. Jasmine Alojado',
+    'Mrs. Celeste Kibanoff',
+    'Mrs. Ivy Simonsson',
+    'Mrs. Maria Gracia Gagui',
+    'Mrs. Cheryl Parsons',
+    'Mrs. Fe S. Madlangbayan',
+    'Mrs. Dolores Cabrales',
+    'Mrs. Claton',
+  ])
   assert.deepEqual(pairNames('honor-attendants', 0), ['Jian Angelo Domingo', 'Earvin Mc Laren Cosio'])
   assert.deepEqual(pairNames('honor-attendants', 1), ['Jessa Ramos Cepillo', 'Nelffa Tinumpic'])
   assert.deepEqual(pairNames('wedding-party', 0), [
-    'Van Defante',
+    'Vahn Reiven Defante',
     'Ephie Santos',
     'Jan Mapalad',
     'Jamir Defante',
-    'Jop Madrid',
+    'Joprey Madrid',
     'Erwin Pat Eddyson Cosio',
-    'Justin Solomon',
-    'Russ Ignacio',
+    'Justine Solomon',
   ])
   assert.deepEqual(pairNames('wedding-party', 1), [
-    'Ellery Kong',
+    'Jemeliz Tanola',
     'Melissa Abesamis',
-    'Jelai Tanola',
+    'Ellery Kong',
     'Shiela Cepeda',
     'Maryrose Diamos',
     'Enoc Allyson Cosio',
-    'Bailey Villojan',
+    'Bailey Ann Villojan',
   ])
   const roles = groups.flatMap((group) => (group.layout === 'chapter' ? group.roles : []))
   const name = (heading) => roles.find((role) => role.heading === heading).people.map((p) => p.name)
-  assert.deepEqual(name('Veil sponsors'), ['Yho Guro', 'Ethelmira Guro'])
+  assert.deepEqual(name('Veil sponsors'), ['Yoly Guro', 'Ethelmira Guro'])
   assert.deepEqual(name('Cord sponsors'), ['Sonny Cosio', 'Josephine Cosio'])
   assert.deepEqual(name('Candle sponsors'), ['Primitivo Madrid', 'Josie Madrid'])
-  assert.deepEqual(name('Ring bearer'), ['Elin Noah Abad'])
-  assert.deepEqual(name('Bible bearer'), ['Ervie Ann Cosio'])
-  assert.deepEqual(name('Flower girl'), ['Yangyang'])
-  assert.equal(
-    roles.some((role) => /aras|coin/i.test(role.heading)),
-    false,
-  )
+  assert.deepEqual(name('Aras sponsor'), ['Russ Ignacio'])
+  assert.deepEqual(name('Ring bearer'), ['Elin Noah'])
+  assert.deepEqual(name('Bible bearer'), ['Robin Amigo'])
+  assert.deepEqual(name('Flower girl'), ['Ran Long Yang'])
+  assert.equal(groups.find((group) => group.id === 'bearers').heading, 'Ceremonial roles')
+  assert.doesNotMatch(groups.map((group) => group.heading).join(' '), /little bearers/i)
 })
 
-test('all supplied attire colors stay separate from website theme colors', () => {
+test('principal sponsor and guest colors stay separate from website theme colors', () => {
   assert.deepEqual(
-    Object.fromEntries(weddingContent.attire.partyColors.map((entry) => [entry.role, entry.color.hex])),
+    Object.fromEntries(weddingContent.attire.sponsorColors.map((entry) => [entry.role, entry.color.hex])),
     {
-      Bridesmaids: '#A67C5E',
-      'Maid of Honor': '#87CEEB',
-      'Mother of the Bride': '#DCC7A4',
-      'Father of the Bride': '#000080',
-      'Mother of the Groom': '#C49A6C',
-      'Father of the Groom': '#000080',
-      'Best Man': '#87CEEB',
-      Groomsmen: '#4C3626',
-      'Ring Bearer': '#556B2F',
-      'Flower Girl': '#A67C5E',
       'Ninong / Male Sponsors': '#4C3626',
       'Ninang / Female Sponsors': '#C49A6C',
     },
@@ -104,15 +139,15 @@ test('all supplied attire colors stay separate from website theme colors', () =>
   assert.equal(weddingContent.attire.restrictedColors, 'Please avoid wearing white, pearl, and ivory.')
 })
 
-test('eight distinct watercolor illustrations map to the approved outfit colors and ship as small assets', () => {
-  const looks = [...weddingContent.attire.partyLooks, ...weddingContent.attire.guestLooks]
+test('sponsor and guest watercolor illustrations map to approved colors and ship as small assets', () => {
+  const looks = [...weddingContent.attire.sponsorLooks, ...weddingContent.attire.guestLooks]
   const root = fileURLToPath(new URL('../', import.meta.url))
   assert.deepEqual(
     looks.map((look) => look.colors.primary),
-    ['#A67C5E', '#87CEEB', '#87CEEB', '#4C3626', '#C49A6C', '#A7A7A7', '#C9B4E4', '#F9E79F'],
+    ['#4C3626', '#C49A6C', '#A7A7A7', '#C9B4E4', '#F9E79F'],
   )
-  assert.equal(new Set(looks.map((look) => look.id)).size, 8)
-  assert.equal(new Set(looks.map((look) => look.illustration.src)).size, 8)
+  assert.equal(new Set(looks.map((look) => look.id)).size, 5)
+  assert.equal(new Set(looks.map((look) => look.illustration.src)).size, 5)
   for (const look of looks) {
     const { src, alt, width, height } = look.illustration
     assert.match(src, /^\/images\/attire\/[\w-]+\.webp$/)
@@ -143,7 +178,7 @@ test('the six-event program is explicitly sample content and does not confirm th
   assert.equal(new Set(timeline.events.map((event) => event.id)).size, 6)
 })
 
-test('gift preview uses the supplied artwork without exposing unapproved payment destinations', () => {
+test('gift preview uses the supplied artwork and locally stored payment QR crops', () => {
   const { gifts } = weddingContent
   const root = fileURLToPath(new URL('../', import.meta.url))
   assert.equal(gifts.messagePendingApproval, true)
@@ -152,10 +187,25 @@ test('gift preview uses the supplied artwork without exposing unapproved payment
   assert.deepEqual(
     gifts.options.map(({ id, label, approved, qrImage }) => ({ id, label, approved, qrImage })),
     [
-      { id: 'gift-option-01', label: 'Gift Option 01', approved: undefined, qrImage: undefined },
-      { id: 'gift-option-02', label: 'Gift Option 02', approved: undefined, qrImage: undefined },
+      {
+        id: 'bdo',
+        label: 'BDO',
+        approved: true,
+        qrImage: { src: '/images/client/payment-bdo.png', alt: 'BDO payment QR code' },
+      },
+      {
+        id: 'gcash',
+        label: 'GCash',
+        approved: true,
+        qrImage: { src: '/images/client/payment-gcash.png', alt: 'GCash payment QR code' },
+      },
     ],
   )
+  for (const option of gifts.options) {
+    assert.ok(existsSync(join(root, 'public', option.qrImage.src.slice(1))))
+  }
+  assert.ok(!existsSync(join(root, 'public/images/client/qr-bdo.png')))
+  assert.ok(!existsSync(join(root, 'public/images/client/qr-gcash.png')))
   assert.doesNotMatch(JSON.stringify(gifts), /account number|wallet address|https?:\/\//i)
 })
 

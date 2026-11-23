@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 
 // Original, procedural instrumental loop for prototype interaction testing.
 // No third-party audio samples or melodies are used.
@@ -45,7 +45,6 @@ header.writeUInt16LE(2, 32)
 header.writeUInt16LE(16, 34)
 header.write('data', 36)
 header.writeUInt32LE(pcm.length, 40)
-writeFileSync(
-  new URL('../public/audio/original-ambient-demo.wav', import.meta.url),
-  Buffer.concat([header, pcm]),
-)
+const output = new URL('../artwork/audio/generated-ambient-demo.wav', import.meta.url)
+mkdirSync(new URL('../artwork/audio/', import.meta.url), { recursive: true })
+writeFileSync(output, Buffer.concat([header, pcm]))

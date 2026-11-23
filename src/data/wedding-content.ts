@@ -1,14 +1,9 @@
 import type { HexColor, WeddingContent } from '../types/wedding'
 
 // Client-supplied colors are dress-code data, separate from the template theme.
-const party = {
-  taupe: '#A67C5E',
-  sky: '#87CEEB',
-  beige: '#DCC7A4',
-  navy: '#000080',
+const sponsor = {
   caramel: '#C49A6C',
   mocha: '#4C3626',
-  olive: '#556B2F',
 } satisfies Record<string, HexColor>
 
 const guests = {
@@ -41,6 +36,7 @@ export const weddingContent: WeddingContent = {
   introduction: 'With full hearts, we invite you to celebrate the beginning of our forever.',
   welcome: {
     heading: 'Welcome, Family & Friends',
+    subtitle: 'The Convalidation of Our Marriage',
     musicLabel: 'Listen to Our Song',
     paragraphs: [
       'With grateful hearts, we invite you to share in the joy of our special day.',
@@ -75,6 +71,80 @@ export const weddingContent: WeddingContent = {
     intro: 'With gratitude to those standing beside us',
     groups: [
       {
+        id: 'groom-parents',
+        layout: 'single',
+        heading: 'Parents of the Groom',
+        people: [{ name: 'Mr. Erwin Cosio' }, { name: 'Mrs. Consuelo Cosio' }],
+      },
+      {
+        id: 'bride-father',
+        layout: 'single',
+        heading: 'Father of the Bride',
+        people: [{ name: 'Mr. Jayson Cepillo' }],
+      },
+      {
+        id: 'bride-mother-memory',
+        layout: 'single',
+        heading: 'In Loving Memory of the Mother of the Bride',
+        people: [{ name: 'Mrs. Liza Ramos' }],
+      },
+      {
+        id: 'bride-representative',
+        layout: 'single',
+        description: 'To be represented and escorted by',
+        people: [{ name: 'Mrs. Kcenia Zarate' }],
+      },
+      {
+        id: 'principal-sponsors',
+        layout: 'paired',
+        heading: 'Principal Sponsors',
+        description: 'To guide and support us with wisdom and love',
+        columns: [
+          {
+            people: [
+              { name: 'Mr. Calvin Hackett' },
+              { name: 'Mr. Mario Moncado' },
+              { name: 'Mr. Arman Diamos' },
+              { name: 'Mr. Russel Ramos' },
+              { name: 'Mr. Benjie Gamayo' },
+              { name: 'Mr. Rolly Ramos' },
+              { name: 'Mr. Ariel Calimbas' },
+              { name: 'Mr. Prince Edionne Solomon' },
+              { name: 'Mr. Allain John Colcol' },
+              { name: 'Mr. Jened Catindig' },
+              { name: 'Mr. Jessie Cabral' },
+              { name: 'Mr. Ingvar Simonsson' },
+              { name: 'Mr. BJ Gagui' },
+              { name: 'Mr. Larry Parsons' },
+              { name: 'Mr. Angel Madlangbayan' },
+              { name: 'Mr. Belermino Montanez' },
+              { name: 'Mr. George Claton' },
+            ],
+          },
+          {
+            people: [
+              { name: 'Mrs. Eleonor Hackett' },
+              { name: 'Mrs. Vilma Moncada' },
+              { name: 'Mrs. Cinderella Diamos' },
+              { name: 'Mrs. Luzviminda Sanchez' },
+              { name: 'Mrs. Merlinda Ramos' },
+              { name: 'Mrs. Lhavz Ramos' },
+              { name: 'Mrs. Irene Calimbas' },
+              { name: 'Mrs. Efvi Frances Martinez' },
+              { name: 'Mrs. Cristy Recio' },
+              { name: 'Mrs. Jasmine Alojado' },
+              { name: 'Mrs. Celeste Kibanoff' },
+              { name: 'Mrs. Ivy Simonsson' },
+              { name: 'Mrs. Maria Gracia Gagui' },
+              { name: 'Mrs. Cheryl Parsons' },
+              { name: 'Mrs. Fe S. Madlangbayan' },
+              { name: 'Mrs. Dolores Cabrales' },
+              { name: 'Mrs. Claton' },
+            ],
+          },
+        ],
+      },
+      {
         id: 'honor-attendants',
         layout: 'paired',
         columns: [
@@ -96,26 +166,25 @@ export const weddingContent: WeddingContent = {
           {
             heading: 'Groomsmen',
             people: [
-              { name: 'Van Defante' },
+              { name: 'Vahn Reiven Defante' },
               { name: 'Ephie Santos' },
               { name: 'Jan Mapalad' },
               { name: 'Jamir Defante' },
-              { name: 'Jop Madrid' },
+              { name: 'Joprey Madrid' },
               { name: 'Erwin Pat Eddyson Cosio' },
-              { name: 'Justin Solomon' },
-              { name: 'Russ Ignacio' },
+              { name: 'Justine Solomon' },
             ],
           },
           {
             heading: 'Bridesmaids',
             people: [
-              { name: 'Ellery Kong' },
+              { name: 'Jemeliz Tanola' },
               { name: 'Melissa Abesamis' },
-              { name: 'Jelai Tanola' },
+              { name: 'Ellery Kong' },
               { name: 'Shiela Cepeda' },
               { name: 'Maryrose Diamos' },
               { name: 'Enoc Allyson Cosio' },
-              { name: 'Bailey Villojan' },
+              { name: 'Bailey Ann Villojan' },
             ],
           },
         ],
@@ -126,7 +195,7 @@ export const weddingContent: WeddingContent = {
         heading: 'Secondary sponsors',
         description: 'To witness and support our union',
         roles: [
-          { heading: 'Veil sponsors', people: [{ name: 'Yho Guro' }, { name: 'Ethelmira Guro' }] },
+          { heading: 'Veil sponsors', people: [{ name: 'Yoly Guro' }, { name: 'Ethelmira Guro' }] },
           {
             heading: 'Cord sponsors',
             people: [{ name: 'Sonny Cosio' }, { name: 'Josephine Cosio' }],
@@ -135,17 +204,18 @@ export const weddingContent: WeddingContent = {
             heading: 'Candle sponsors',
             people: [{ name: 'Primitivo Madrid' }, { name: 'Josie Madrid' }],
           },
+          { heading: 'Aras sponsor', people: [{ name: 'Russ Ignacio' }] },
         ],
       },
       {
         id: 'bearers',
         layout: 'chapter',
-        heading: 'Little bearers',
+        heading: 'Ceremonial roles',
         description: 'To carry the symbols of our ceremony with care',
         roles: [
-          { heading: 'Ring bearer', people: [{ name: 'Elin Noah Abad' }] },
-          { heading: 'Bible bearer', people: [{ name: 'Ervie Ann Cosio' }] },
-          { heading: 'Flower girl', people: [{ name: 'Yangyang' }] },
+          { heading: 'Ring bearer', people: [{ name: 'Elin Noah' }] },
+          { heading: 'Bible bearer', people: [{ name: 'Robin Amigo' }] },
+          { heading: 'Flower girl', people: [{ name: 'Ran Long Yang' }] },
         ],
       },
     ],
@@ -170,68 +240,32 @@ export const weddingContent: WeddingContent = {
   },
   attire: {
     guidance: 'Formal attire',
-    partyHeading: 'Wedding Party',
-    partyCaption: 'Illustrative formal looks in our assigned colors',
+    sponsorHeading: 'Principal Sponsors',
+    sponsorCaption: 'Ladies in caramel gowns · Gentlemen in deep mocha suits',
     guestHeading: 'Wedding Guests',
     guestCaption: 'Please wear formal attire in the colors below',
     notesHeading: 'Special Notes on Attire',
-    partyLooks: [
+    sponsorLooks: [
       {
-        id: 'bridesmaid-taupe',
-        label: 'Bridesmaid',
-        variant: 'gown',
-        colors: { primary: party.taupe, secondary: party.beige },
-        illustration: {
-          src: '/images/attire/party-taupe-gown.webp',
-          alt: 'Example bridesmaid in a flowing taupe brown formal gown',
-          width: 768,
-          height: 1152,
-        },
-      },
-      {
-        id: 'best-man-sky',
-        label: 'Best man',
+        id: 'male-sponsor-mocha',
+        label: 'Ninong / Male sponsor',
         variant: 'suit',
-        colors: { primary: party.sky, secondary: party.navy },
-        illustration: {
-          src: '/images/attire/party-sky-suit.webp',
-          alt: 'Example best man in a tailored sky blue formal suit',
-          width: 768,
-          height: 1152,
-        },
-      },
-      {
-        id: 'maid-of-honor-sky',
-        label: 'Maid of honor',
-        variant: 'gown',
-        colors: { primary: party.sky, secondary: party.beige },
-        illustration: {
-          src: '/images/attire/party-sky-gown.webp',
-          alt: 'Example maid of honor in a long sky blue formal gown',
-          width: 768,
-          height: 1152,
-        },
-      },
-      {
-        id: 'groomsman-mocha',
-        label: 'Groomsman',
-        variant: 'suit',
-        colors: { primary: party.mocha, secondary: party.beige },
+        colors: { primary: sponsor.mocha },
         illustration: {
           src: '/images/attire/party-mocha-suit.webp',
-          alt: 'Example groomsman in a tailored deep mocha formal suit',
+          alt: 'Example male principal sponsor in a tailored deep mocha formal suit',
           width: 768,
           height: 1152,
         },
       },
       {
         id: 'female-sponsor-caramel',
-        label: 'Ninang',
+        label: 'Ninang / Female sponsor',
         variant: 'gown',
-        colors: { primary: party.caramel, secondary: party.taupe },
+        colors: { primary: sponsor.caramel },
         illustration: {
           src: '/images/attire/party-caramel-gown.webp',
-          alt: 'Example female sponsor in an elegant caramel formal gown',
+          alt: 'Example female principal sponsor in a long caramel formal gown',
           width: 768,
           height: 1152,
         },
@@ -275,20 +309,9 @@ export const weddingContent: WeddingContent = {
         },
       },
     ],
-    partyColors: [
-      { role: 'Bridesmaids', color: { name: 'Taupe Brown', hex: party.taupe } },
-      { role: 'Maid of Honor', color: { name: 'Sky Blue', hex: party.sky } },
-      { role: 'Mother of the Bride', color: { name: 'Warm Beige', hex: party.beige } },
-      { role: 'Father of the Bride', color: { name: 'Navy Blue', hex: party.navy } },
-      { role: 'Mother of the Groom', color: { name: 'Caramel', hex: party.caramel } },
-      { role: 'Father of the Groom', color: { name: 'Navy Blue', hex: party.navy } },
-      { role: 'Best Man', color: { name: 'Sky Blue', hex: party.sky } },
-      // Source image contradicts itself: the "same as Best Man" note accompanies Deep Mocha.
-      { role: 'Groomsmen', color: { name: 'Deep Mocha', hex: party.mocha } },
-      { role: 'Ring Bearer', color: { name: 'Olive Green', hex: party.olive } },
-      { role: 'Flower Girl', color: { name: 'Taupe Brown', hex: party.taupe } },
-      { role: 'Ninong / Male Sponsors', color: { name: 'Deep Mocha', hex: party.mocha } },
-      { role: 'Ninang / Female Sponsors', color: { name: 'Caramel', hex: party.caramel } },
+    sponsorColors: [
+      { role: 'Ninong / Male Sponsors', color: { name: 'Deep Mocha', hex: sponsor.mocha } },
+      { role: 'Ninang / Female Sponsors', color: { name: 'Caramel', hex: sponsor.caramel } },
     ],
     guestColors: [
       { name: 'Grey', hex: guests.grey },
@@ -318,14 +341,30 @@ export const weddingContent: WeddingContent = {
       width: 469,
       height: 468,
     },
-    // Preview wording; the couple has not approved gift instructions or payment details.
+    // Client-suggested wording awaits final approval. Verify both payment recipients in their apps before publication.
     messagePendingApproval: true,
     message:
-      'Your presence at our wedding is a beautiful gift. If you wish to share something as we begin our next chapter, your thoughtful gesture would be deeply appreciated.',
-    optionsIntro: 'For your convenience, our gift options will appear here once confirmed.',
+      'Your presence and prayers are the greatest gifts we could receive. As we are currently residing in Dubai, bringing physical gifts home would be a little challenging. Should you wish to bless us further, a monetary gift toward our next chapter would be sincerely appreciated.',
+    optionsIntro: 'If you prefer to give digitally, please scan the BDO or GCash code below.',
     options: [
-      { id: 'gift-option-01', label: 'Gift Option 01' },
-      { id: 'gift-option-02', label: 'Gift Option 02' },
+      {
+        id: 'bdo',
+        label: 'BDO',
+        approved: true,
+        qrImage: {
+          src: '/images/client/payment-bdo.png',
+          alt: 'BDO payment QR code',
+        },
+      },
+      {
+        id: 'gcash',
+        label: 'GCash',
+        approved: true,
+        qrImage: {
+          src: '/images/client/payment-gcash.png',
+          alt: 'GCash payment QR code',
+        },
+      },
     ],
   },
   reminders: {
@@ -377,7 +416,7 @@ export const weddingContent: WeddingContent = {
       question: 'Are kids allowed?',
       answer: [
         'We certainly love your kids, but due to necessity rather than choice, we regretfully cannot accommodate them at the venue.',
-        'The only kids attending are those who are part of the entourage. We hope you understand and enjoy the night off.',
+        'The only children attending are our ring bearer and flower girl. We hope you understand and enjoy the night off.',
       ],
     },
     {
@@ -404,7 +443,7 @@ export const weddingContent: WeddingContent = {
     deadlineNote: 'RSVP details and confirmation deadline will be announced soon.',
   },
   music: {
-    src: '/audio/original-ambient-demo.wav',
+    src: '/audio/original-ambient-demo.mp3',
     title: 'Original instrumental preview',
     preferredTitle: 'Risk It All',
     preferredArtist: 'Bruno Mars',

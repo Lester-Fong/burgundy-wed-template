@@ -20,7 +20,7 @@ defineProps<{ content: NonNullable<WeddingContent['entourage']> }>()
         >
           <template v-if="group.layout === 'single'">
             <p v-if="group.description" class="entourage__description">{{ group.description }}</p>
-            <h3 class="entourage__role">{{ group.heading }}</h3>
+            <h3 v-if="group.heading" class="entourage__role">{{ group.heading }}</h3>
             <ul class="entourage__names">
               <li v-for="person in group.people" :key="person.name" class="entourage__name">
                 {{ person.name }}

@@ -54,7 +54,6 @@
 
 .attire__group--guests {
   padding-top: clamp(1.8rem, 3vw, 2.5rem);
-  border-top: 1px solid #b9958370;
 }
 
 .attire__group h3,
@@ -83,8 +82,8 @@
   margin: 0.8rem auto 0.65rem;
 }
 
-.attire__lineup--party {
-  max-width: 920px;
+.attire__lineup--sponsors {
+  max-width: 500px;
 }
 
 .attire__lineup--guests {
@@ -104,9 +103,11 @@
   object-fit: contain;
 }
 
-.attire__lineup--party .attire__look,
 .attire__lineup--guests .attire__look {
   width: clamp(126px, 14vw, 170px);
+}
+.attire__lineup--sponsors .attire__look {
+  width: clamp(170px, 20vw, 230px);
 }
 
 .fashion-figure {
@@ -195,6 +196,9 @@
   gap: 0.1rem clamp(0.5rem, 1.3vw, 1rem);
   margin: 0 auto;
   text-align: left;
+}
+.attire__assignments .attire__legend {
+  max-width: 470px;
 }
 
 .attire__assignments {
@@ -314,12 +318,6 @@
   font-style: italic;
 }
 
-@media (min-width: 1100px) {
-  .attire__legend {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 700px) {
   .attire__heading {
     margin-bottom: 1.95rem;
@@ -329,8 +327,8 @@
     gap: 1.6rem;
   }
 
-  .attire__lineup--party .attire__look {
-    width: min(31%, 128px);
+  .attire__lineup--sponsors .attire__look {
+    width: min(43%, 170px);
   }
 
   .attire__lineup--guests .attire__look {
@@ -339,8 +337,8 @@
 }
 
 @media (max-width: 500px) {
-  .attire__lineup--party .attire__look {
-    width: min(31%, 116px);
+  .attire__lineup--sponsors .attire__look {
+    width: min(43%, 150px);
   }
 
   .attire__lineup--guests .attire__look {

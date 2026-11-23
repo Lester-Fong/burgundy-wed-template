@@ -61,7 +61,7 @@
 
 .gifts__options {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 128px));
+  grid-template-columns: repeat(2, minmax(0, 180px));
   justify-content: center;
   gap: clamp(1rem, 3vw, 2.25rem);
   margin-top: clamp(1rem, 3dvh, 1.8rem);
@@ -83,7 +83,7 @@
 
 .gifts__qr-square {
   display: grid;
-  width: min(100%, 110px);
+  width: min(100%, 180px);
   aspect-ratio: 1;
   place-items: center;
   margin-inline: auto;
@@ -143,7 +143,13 @@
   }
 
   .gifts__qr-square {
-    width: min(100%, 12dvh, 110px);
+    width: min(100%, 180px);
+  }
+}
+
+@media (max-width: 540px) {
+  .gifts__options {
+    grid-template-columns: minmax(0, 180px);
   }
 }
 

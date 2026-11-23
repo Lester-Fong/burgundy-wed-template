@@ -28,7 +28,7 @@ export interface EntourageColumn {
 }
 
 export type EntourageGroup =
-  | ({ id: string; layout: 'single' } & EntourageRole)
+  | ({ id: string; layout: 'single' } & Omit<EntourageRole, 'heading'> & { heading?: string })
   | {
       id: string
       layout: 'paired'
@@ -93,14 +93,14 @@ export interface AttireRoleColor {
 
 export interface AttireContent {
   guidance: string
-  partyHeading: string
-  partyCaption: string
+  sponsorHeading: string
+  sponsorCaption: string
   guestHeading: string
   guestCaption: string
   notesHeading: string
-  partyLooks: FashionLook[]
+  sponsorLooks: FashionLook[]
   guestLooks: FashionLook[]
-  partyColors: AttireRoleColor[]
+  sponsorColors: AttireRoleColor[]
   guestColors: AttireColor[]
   restrictedColors: string
   closingNote?: string
@@ -126,7 +126,7 @@ export interface TimelineContent {
 export interface GiftOption {
   id: string
   label: string
-  /** Show a payment QR only after the client approves the supplied image. */
+  /** Client-authorized image for preview; payment-app recipient verification is a separate publication gate. */
   approved?: boolean
   qrImage?: ImageAsset
 }
@@ -171,6 +171,7 @@ export interface ClosingContent {
 
 export interface WelcomeContent {
   heading: string
+  subtitle?: string
   musicLabel: string
   paragraphs: [string, string]
 }

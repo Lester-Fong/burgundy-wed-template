@@ -1,6 +1,6 @@
 # Burgundy Wedding — standalone visual prototype
 
-An original, mobile-first Vue 3 wedding invitation preview for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, and supplied wedding-party names are client-provided. Entourage spelling remains provisional; event times and several other details are pending. Photography depicts fictional people. This is for owner visual review, not public distribution.
+An original, mobile-first Vue 3 wedding invitation preview for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, and latest entourage roster are client-provided. Event times and several other details are pending. Photography depicts fictional people. Review all pending content before relying on this build for guests.
 
 ## Run
 
@@ -28,9 +28,26 @@ npm run qa:browser
 - `src/utils/`: date countdown, HTTPS link validation, and six-digit attire-color validation.
 - `public/images/prototype/`: original generated placeholder photography, separate from future client assets.
 - `public/images/client/`: ignored folder reserved for approved client imagery; its contents are excluded from Git by default.
-- `public/audio/`: original procedural instrumental preview. `scripts/generate-demo-audio.mjs` is its source.
+- `public/audio/`: the player uses a 128 kb/s MP3 derived from the existing WAV, with 0.55 seconds of leading quiet audio removed. It starts buffering during the envelope intro; playback still requires a guest gesture. The larger WAV source is kept in `artwork/audio/` so it is not copied into the static build. `scripts/generate-demo-audio.mjs` creates a separate short synthetic demo and does not reproduce the current 3:26 recording.
 
-Optional content sections are rendered only when data exists. The client-supplied direct Google Maps links were checked against their venue names; each venue button and generated QR now use the same validated URL. Gift payment and registry details remain pending. External links use `target="_blank"` and `rel="noopener noreferrer"`.
+Optional content sections are rendered only when data exists. The client-supplied direct Google Maps links were checked against their venue names; each venue button and generated QR now use the same validated URL. Payment QR images are staged locally for owner verification; registry details remain pending. External links use `target="_blank"` and `rel="noopener noreferrer"`.
+
+## 02C.4 payment QR review
+
+- The original BDO and GCash screenshots are in ignored `artwork/payment-qr/`, outside `public/`. Exact pixel crops with white quiet zones are in ignored `public/images/client/payment-bdo.png` and `payment-gcash.png`; the build includes only these cropped images. No account text outside the QR images is published.
+- The Gift Guide renders both images under BDO and GCash while keeping the Dubai gift message. On narrow phones the options stack so each QR can be shown larger; desktop retains two columns.
+- `node scripts/payment-qr-review.mjs before|after` captures ignored screenshots and measures 320, 390, 768, and 1440px layouts. The local QR decoder can read GCash. The supplied BDO screenshot and its lossless crop did not decode with either jsQR or ZXing at source size, so **BDO must be scanned successfully in a BDO or compatible payment app, or replaced with a working original, before publication**. The owner must independently verify both recipients and payment details in the relevant apps, then repeat the check shortly before the February 2027 wedding.
+- `public/images/client/.gitignore` excludes the payment images from commits. If publication is approved, ensure the verified cropped images are included in the deployment artifact; a Git-based build without these ignored local files will show broken images.
+
+## 02C.3 client feedback
+
+- The Welcome section carries the convalidation phrase. The Attire Guide shows principal sponsors in deep mocha suits and caramel gowns using existing watercolor assets; the approved grey, lavender, and light yellow guest looks remain.
+- The Entourage roster follows the latest client screenshots, with 17 paired principal sponsors. The ring bearer and flower girl are the only children; the other ceremonial roles are adults. The family memorial and escort wording remain separate.
+- The suggested Dubai monetary gift message is marked pending approval. BDO and GCash have labeled **QR pending** placeholders until the owner supplies the original approved QR images. No payment destination or account details are present in the source.
+- Before adding payment QR images to a public build, have the owner and client scan each original image at its displayed size and independently verify the intended recipient and payment details. Repeat that check shortly before the February 2027 wedding. Image rendering or QR decoding alone cannot establish payment validity or future availability.
+- Local comparison images and browser measurements are in ignored `screenshots/02c3-before/` and `screenshots/02c3-after/`. With the production preview running, `node scripts/client-feedback-review.mjs after` checks 320–1920px widths and refreshes the after captures.
+
+The milestone notes below describe earlier iterations; the 02C.3 summary above describes the current Entourage and Attire Guide.
 
 ## Reference analysis and design direction
 
@@ -116,10 +133,10 @@ The Wedding Program uses the existing fictional garden photograph with configura
 - The three photographs under `public/images/prototype/` were generated originally for this prototype with OpenAI image generation. They depict fictional people and do not use the reference site's images. Replace with approved client photography before release.
 - `public/images/template/bloody-red.jpg` is the owner-supplied closing background. Its publication rights should be confirmed before release.
 - All ornaments, the venue concept drawings, the retired inline fashion figures, and the floral drawing are original SVG/CSS assets or component markup. The production fashion collection is original generated watercolor artwork, not copied from the reference site.
-- `public/audio/original-ambient-demo.wav` is generated by the repository's own synthesis script; it contains no third-party samples or copyrighted song.
+- `public/audio/original-ambient-demo.mp3` is a smaller encoding of `artwork/audio/original-ambient-demo-source.wav`. Confirm the source recording's usage rights with its provider before client publication.
 - **Italiana**, **Cormorant Garamond**, and **DM Sans** are self-hosted from Fontsource npm packages. All three packages include SIL Open Font License 1.1 text in their installed package directories; keep the font license notices when redistributing font files. No runtime font CDN is required.
-- Venue QR codes encode the direct Google Maps links supplied by the owner. No gift or payment QR is active.
+- Venue QR codes encode the direct Google Maps links supplied by the owner. Client-supplied payment QR crops are staged for owner verification and must not be published until their recipients are checked in the payment apps.
 
 ## Needed for client-ready content
 
-Confirm the provisional entourage spellings and the Groomsmen color contradiction. Supply the exact ceremony time, remaining schedule, parents and principal sponsors if they should appear, coin bearer if applicable, parking details, gift wording or registry data if desired, RSVP instructions and deadline, approved client photographs, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. The final footer concept is a later milestone.
+Supply the exact ceremony time, remaining schedule, successful payment-app scan and recipient verification for both QR images, final gift-wording approval, parking details, RSVP instructions and deadline, approved client photographs, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. The final footer concept is a later milestone.

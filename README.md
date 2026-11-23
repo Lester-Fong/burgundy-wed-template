@@ -34,10 +34,10 @@ Optional content sections are rendered only when data exists. The client-supplie
 
 ## 02C.4 payment QR review
 
-- The original BDO and GCash screenshots are in ignored `artwork/payment-qr/`, outside `public/`. Exact pixel crops with white quiet zones are in ignored `public/images/client/payment-bdo.png` and `payment-gcash.png`; the build includes only these cropped images. No account text outside the QR images is published.
+- The original BDO and GCash screenshots are in ignored `artwork/payment-qr/`, outside `public/`. Exact pixel crops with white quiet zones are in `public/images/client/payment-bdo.png` and `payment-gcash.png`; these two files are allowlisted in that folder's `.gitignore` so Git-based deployments can include them. The build includes only these cropped images. No account text outside the QR images is published.
 - The Gift Guide renders both images under BDO and GCash while keeping the Dubai gift message. On narrow phones the options stack so each QR can be shown larger; desktop retains two columns.
-- `node scripts/payment-qr-review.mjs before|after` captures ignored screenshots and measures 320, 390, 768, and 1440px layouts. The local QR decoder can read GCash. The supplied BDO screenshot and its lossless crop did not decode with either jsQR or ZXing at source size, so **BDO must be scanned successfully in a BDO or compatible payment app, or replaced with a working original, before publication**. The owner must independently verify both recipients and payment details in the relevant apps, then repeat the check shortly before the February 2027 wedding.
-- `public/images/client/.gitignore` excludes the payment images from commits. If publication is approved, ensure the verified cropped images are included in the deployment artifact; a Git-based build without these ignored local files will show broken images.
+- `node scripts/payment-qr-review.mjs before|after` captures ignored screenshots and measures 320, 390, 768, and 1440px layouts. The local QR decoder can read GCash. The supplied BDO screenshot and its lossless crop did not decode with either jsQR or ZXing at source size; the owner subsequently confirmed a successful scan and intended recipient in a compatible payment app. Verify the GCash recipient in its payment app and repeat both checks shortly before the February 2027 wedding.
+- Before a Git-based redeploy, include `public/images/client/payment-bdo.png` and `payment-gcash.png` in the commit. Check that both production image URLs return PNGs after deployment. The full source screenshots remain ignored. Recipient and scan verification remain required before treating either QR as a working payment destination.
 
 ## 02C.3 client feedback
 

@@ -1,6 +1,6 @@
 # Burgundy Wedding — standalone visual prototype
 
-An original, mobile-first Vue 3 wedding invitation preview for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, and latest entourage roster are client-provided. Event times and several other details are pending. Photography depicts fictional people. Review all pending content before relying on this build for guests.
+An original, mobile-first Vue 3 wedding invitation preview for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, entourage roster, program, and six civil-wedding photographs are client-provided. Several other details remain pending. The photographs document their earlier civil wedding; the February 22, 2027 celebration is the convalidation of their marriage.
 
 ## Run
 
@@ -15,7 +15,7 @@ npm run preview
 npm run qa:browser
 ```
 
-`npm run build` produces a standalone static `dist/` suitable for a later Netlify deployment. For browser QA, start `npm run preview -- --port 4173` before `npm run qa:browser`; screenshots are saved locally. The page has RSVP reminder copy but no RSVP form, submission, backend, database, CMS, or SaaS connection. No remote repository has been configured.
+`npm run build` produces a standalone static `dist/` suitable for Vercel or Netlify. For browser QA, start `npm run preview -- --port 4173` before `npm run qa:browser`; screenshots are saved locally. The page has RSVP reminder copy but no RSVP form, submission, backend, database, CMS, or SaaS connection.
 
 ## Architecture
 
@@ -26,11 +26,29 @@ npm run qa:browser
 - `src/templates/BurgundyWedding/composables/useScrollReveal.ts`: once-per-visit text motion. Text stays visible if the observer is unavailable and whenever reduced motion is requested.
 - `src/app/App.vue` and `src/main.ts`: standalone bootstrap only.
 - `src/utils/`: date countdown, HTTPS link validation, and six-digit attire-color validation.
-- `public/images/prototype/`: original generated placeholder photography, separate from future client assets.
-- `public/images/client/`: ignored folder reserved for approved client imagery; its contents are excluded from Git by default.
+- `public/images/prototype/`: unused historical generated placeholder photography.
+- `artwork/client-photography-originals/`: ignored, unchanged full-resolution client JPEGs, outside Vite's public directory.
+- `public/images/client/`: optimized client WebP derivatives and approved payment QR crops are explicitly allowlisted for Git deployments; other files remain ignored.
 - `public/audio/`: the player uses a 128 kb/s MP3 derived from the existing WAV, with 0.55 seconds of leading quiet audio removed. It starts buffering during the envelope intro; playback still requires a guest gesture. The larger WAV source is kept in `artwork/audio/` so it is not copied into the static build. `scripts/generate-demo-audio.mjs` creates a separate short synthetic demo and does not reproduce the current 3:26 recording.
 
 Optional content sections are rendered only when data exists. The client-supplied direct Google Maps links were checked against their venue names; each venue button and generated QR now use the same validated URL. Payment QR images are staged locally for owner verification; registry details remain pending. External links use `target="_blank"` and `rel="noopener noreferrer"`.
+
+## 02D client photography and confirmed program
+
+The six supplied JPEGs were found in `public/images/client/` (the brief said `public/image/client/`). They are preserved without edits under `artwork/client-photography-originals/`; keeping them outside `public/` prevents the 36.2 MB of originals and their metadata from entering `dist/`. Run `node scripts/prepare-client-photography.mjs` to recreate twelve individually cropped WebP derivatives without embedded source metadata. Their combined size is about 2.2 MB. Run `node scripts/photography-review.mjs` with the production preview on port 4173 to refresh viewport measurements and screenshots in ignored `screenshots/02d/`.
+
+| Original | Section                  | Presentation                                                   |
+| -------- | ------------------------ | -------------------------------------------------------------- |
+| `1.jpeg` | Hero                     | Desktop portrait frame, warm burgundy top veil over bright sky |
+| `2.jpeg` | Divider before Entourage | Walking couple, focal crop and desktop edge vignette           |
+| `3.jpeg` | Divider before Venues    | Bride portrait in a restrained burgundy frame                  |
+| `4.jpeg` | Timeline                 | Mirror photograph zoomed within a right-hand desktop panel     |
+| `5.jpeg` | Divider before Reminders | Seated couple and bouquet in a restrained frame                |
+| `6.jpeg` | Divider before FAQs      | Full civil-wedding portrait in a restrained frame              |
+
+The program has confirmed times for Gathering (3:00 PM), Ceremony (4:00 PM), Cocktails (5:00 PM), and Reception (6:00 PM). The After Party follows the host's program and has no fixed start time. The closing timer intentionally still counts down to the start of February 22 in Manila, not to the ceremony.
+
+The 02D.1 desktop refinement uses the existing `desktopFrameRatio` setting to shorten the Hero while keeping its full-body crop, desktop-only type spacing, a configured Timeline photo scale and transform origin, and a cinematic tone on the first divider. Mobile layouts and images are unchanged. Run `node scripts/desktop-photography-review.mjs before|after` against the production preview to capture the affected sections at 1024, 1366, 1440, 1920, 390, and 430px; the current before/after review images are in ignored `screenshots/02d1/`.
 
 ## 02C.4 payment QR review
 
@@ -67,7 +85,7 @@ Original refinement here: stronger hierarchy on desktop, clearer information car
 
 - The opening uses a burgundy folded-paper envelope, original botanical line work, a wax-style seal, and a viewport-aware top/middle/bottom composition. Both the envelope and primary button open with music; the separate quiet entry remains.
 - The hero contains only the monogram, names, and date. On mobile, text sits in the photograph's dark upper area. On desktop, those three elements form a spaced, centered stack above the couple. The portrait's natural aspect ratio sets the Hero height, and a dark photographic vignette fills the sides.
-- `ImageAsset` accepts optional `desktopSrc`, `mobilePosition`, `desktopPosition`, and `desktopFrameRatio` for future approved photographs. Omit `desktopFrameRatio` to show every pixel of the desktop image; set a positive width-to-height ratio only when an intentional crop is approved. The current prototype still uses its original local image.
+- `ImageAsset` accepts optional `desktopSrc`, mobile and desktop focal positions, presentation, tone, and image dimensions. The current client Hero uses a full-frame portrait, and the six photography slots are configured centrally in `wedding-content.ts`.
 - Section headings and supporting text reveal once on scroll with a small upward translation and stagger. The presentation layer owns the observer; sections do not depend on application state.
 - Local before/after review images are in `screenshots/02a-before/` and `screenshots/02a-after/`. These screenshots are ignored by Git. The `before` folder preserves the 01 baseline; recapture the refined version while the preview server is running with `node scripts/capture-visual-review.mjs after`.
 
@@ -124,13 +142,13 @@ Each look in typed wedding content supplies a stable ID, garment variant, assign
 
 The Attire Guide now places the Wedding Party and Wedding Guests art in two peer groups, keeps the three guest swatches with their group, and places all twelve Wedding Party color assignments in a compact full-width legend beneath both. The legend uses four columns on wide desktops and two at narrower widths; every client color, label, and hex value is unchanged.
 
-The Wedding Program uses the existing fictional garden photograph with configurable mobile and desktop focal positions. A dark gradient, original SVG line icons, gold dotted rail, and restrained Italiana/Cormorant typography form a one-viewport composition. Six events are stored only as a **provisional sample** in typed wedding content, with a visible “Sample program — details to be confirmed” note. These times do not set the canonical wedding time or activate the countdown. Replace the six event objects and set `provisional: false` only after the client confirms the real program. The photograph remains illustrative and must be replaced with an approved client image before publication.
+The original Wedding Program used a fictional garden photograph and six provisional events. In 02D, its typed data was replaced with the confirmed five-event program, and the client mirror photograph became a configurable portrait panel while the accepted timeline typography, icons, and rail stayed in place.
 
 `node scripts/timeline-review.mjs` measures the section at 320 × 700 through 1920 × 1080, checks event order and flow into the Gift Guide, and captures focused timeline, Attire Guide, and full mobile page screenshots under ignored `screenshots/02b4/`. The current eight tested section heights equal their viewport heights; short viewports and zoom can expand naturally because there is no nested scroll or clipping rule.
 
 ## Assets and licenses
 
-- The three photographs under `public/images/prototype/` were generated originally for this prototype with OpenAI image generation. They depict fictional people and do not use the reference site's images. Replace with approved client photography before release.
+- The three photographs under `public/images/prototype/` were generated originally for an earlier prototype with OpenAI image generation. They depict fictional people and do not use the reference site's images. The live page now uses six client-supplied civil-wedding photographs; the old prototype images are unused historical assets.
 - `public/images/template/bloody-red.jpg` is the owner-supplied closing background. Its publication rights should be confirmed before release.
 - All ornaments, the venue concept drawings, the retired inline fashion figures, and the floral drawing are original SVG/CSS assets or component markup. The production fashion collection is original generated watercolor artwork, not copied from the reference site.
 - `public/audio/original-ambient-demo.mp3` is a smaller encoding of `artwork/audio/original-ambient-demo-source.wav`. Confirm the source recording's usage rights with its provider before client publication.
@@ -139,4 +157,4 @@ The Wedding Program uses the existing fictional garden photograph with configura
 
 ## Needed for client-ready content
 
-Supply the exact ceremony time, remaining schedule, successful payment-app scan and recipient verification for both QR images, final gift-wording approval, parking details, RSVP instructions and deadline, approved client photographs, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. The final footer concept is a later milestone.
+Supply final gift-wording approval, parking details, RSVP instructions and deadline, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. Confirm the GCash payment recipient in its app and recheck both QR codes before the wedding. The final footer concept is a later milestone.

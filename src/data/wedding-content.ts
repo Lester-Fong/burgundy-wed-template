@@ -13,7 +13,7 @@ const guests = {
 } satisfies Record<string, HexColor>
 
 export const weddingContent: WeddingContent = {
-  prototypeNotice: 'Client preview · illustrative photographs and pending details',
+  prototypeNotice: 'Client preview · celebration details pending',
   couple: {
     first: 'Jamie',
     second: 'Emiliano',
@@ -26,11 +26,11 @@ export const weddingContent: WeddingContent = {
     timeZone: 'Asia/Manila',
     display: 'February 22, 2027',
     day: 'Monday',
-    timeConfirmed: false,
-    // Date-only prototype countdown: midnight in Manila, not a ceremony time.
+    timeConfirmed: true,
+    // Keep the date-only countdown at midnight in Manila, not the 4:00 PM ceremony.
     countdownTarget: {
       iso: '2027-02-22T00:00:00+08:00',
-      note: 'Counting down to our wedding day. Ceremony time to be announced.',
+      note: 'Counting down to our wedding day. The ceremony begins at 4:00 PM.',
     },
   },
   introduction: 'With full hearts, we invite you to celebrate the beginning of our forever.',
@@ -45,26 +45,67 @@ export const weddingContent: WeddingContent = {
   },
   images: {
     hero: {
-      src: '/images/prototype/couple-editorial.jpg',
-      alt: 'Illustrative prototype photograph of a fictional couple beneath a candlelit stone arch',
-      placeholder: true,
-      position: 'center 57%',
-      mobilePosition: 'center 54%',
-      desktopPosition: 'center 69%',
+      src: '/images/client/photo-1-mobile.webp',
+      desktopSrc: '/images/client/photo-1-desktop.webp',
+      alt: 'Jamie and Emiliano standing together outdoors on their civil wedding day',
+      width: 900,
+      height: 1232,
+      tone: 'daylight',
+      mobilePosition: 'center 55%',
+      desktopPosition: 'center bottom',
+      desktopFrameRatio: 0.72,
     },
-    editorial: {
-      src: '/images/prototype/wedding-still-life.jpg',
-      alt: 'Illustrative prototype photograph of candlelit flowers and an invitation',
-      placeholder: true,
-      position: 'center center',
-    },
-    garden: {
-      src: '/images/prototype/garden-walk.jpg',
-      alt: 'Illustrative prototype photograph of a fictional couple in a garden',
-      placeholder: true,
-      position: 'center center',
-      mobilePosition: '84% center',
+    entourageDivider: {
+      src: '/images/client/photo-2-mobile.webp',
+      desktopSrc: '/images/client/photo-2-desktop.webp',
+      alt: 'Jamie and Emiliano walking hand in hand indoors',
+      width: 900,
+      height: 1236,
+      tone: 'cinematic',
+      mobilePosition: 'center 60%',
       desktopPosition: 'center 52%',
+    },
+    venuesDivider: {
+      src: '/images/client/photo-3-mobile.webp',
+      desktopSrc: '/images/client/photo-3-desktop.webp',
+      alt: 'Jamie seated in her wedding dress before the civil ceremony',
+      width: 900,
+      height: 1418,
+      presentation: 'framed',
+      mobilePosition: 'center 55%',
+      desktopPosition: 'center 53%',
+    },
+    timeline: {
+      src: '/images/client/photo-4-mobile.webp',
+      desktopSrc: '/images/client/photo-4-desktop.webp',
+      alt: 'Jamie and Emiliano photographed together in a mirror',
+      width: 900,
+      height: 1200,
+      presentation: 'timeline-portrait',
+      mobilePosition: 'center 62%',
+      desktopPosition: 'center 59%',
+      desktopScale: 1.43,
+      desktopTransformOrigin: '64% 62%',
+    },
+    remindersDivider: {
+      src: '/images/client/photo-5-mobile.webp',
+      desktopSrc: '/images/client/photo-5-desktop.webp',
+      alt: 'Jamie and Emiliano seated together with their wedding bouquet',
+      width: 900,
+      height: 1030,
+      presentation: 'framed',
+      mobilePosition: 'center 56%',
+      desktopPosition: 'center 56%',
+    },
+    faqsDivider: {
+      src: '/images/client/photo-6-mobile.webp',
+      desktopSrc: '/images/client/photo-6-desktop.webp',
+      alt: 'Jamie and Emiliano standing together in wedding attire with a bouquet',
+      width: 900,
+      height: 1191,
+      presentation: 'framed',
+      mobilePosition: 'center 57%',
+      desktopPosition: 'center 56%',
     },
   },
   entourage: {
@@ -245,6 +286,12 @@ export const weddingContent: WeddingContent = {
     guestHeading: 'Wedding Guests',
     guestCaption: 'Please wear formal attire in the colors below',
     notesHeading: 'Special Notes on Attire',
+    sponsorArtwork: {
+      src: '/images/attire/principal-sponsors-gala.webp',
+      alt: 'Principal sponsor attire: three caramel formal gowns and two deep mocha suits',
+      width: 1447,
+      height: 1087,
+    },
     sponsorLooks: [
       {
         id: 'male-sponsor-mocha',
@@ -323,15 +370,19 @@ export const weddingContent: WeddingContent = {
   },
   timeline: {
     heading: 'The Timeline',
-    provisional: true,
-    note: 'Sample program — details to be confirmed',
+    provisional: false,
     events: [
-      { id: 'gathering', time: '2:30 PM', title: 'Gathering', icon: 'bells' },
-      { id: 'ceremony', time: '3:00 PM', title: 'Ceremony', icon: 'rings' },
+      { id: 'gathering', time: '3:00 PM', title: 'Gathering', icon: 'bells' },
+      { id: 'ceremony', time: '4:00 PM', title: 'Ceremony', icon: 'rings' },
       { id: 'cocktails', time: '5:00 PM', title: 'Cocktails', icon: 'glasses' },
       { id: 'reception', time: '6:00 PM', title: 'Reception', icon: 'sparkle' },
-      { id: 'dinner', time: '7:00 PM', title: 'Dinner', icon: 'dinner' },
-      { id: 'after-party', time: '9:00 PM', title: 'After Party', icon: 'disco' },
+      {
+        id: 'after-party',
+        time: 'After the program',
+        title: 'After Party',
+        icon: 'disco',
+        detail: 'Once the host’s program concludes',
+      },
     ],
   },
   gifts: {

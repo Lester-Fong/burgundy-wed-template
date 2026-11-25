@@ -151,21 +151,66 @@ svg {
   overflow: hidden;
   background: var(--burgundy-dark);
 }
-.photo-divider img {
+.photo-divider__media,
+.photo-divider__backdrop {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+.photo-divider__media {
+  z-index: 1;
+}
+.photo-divider__media img,
+.photo-divider__backdrop img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--photo-position-mobile, center);
 }
-.photo-divider--portrait img {
-  object-position: center 67% !important;
+.photo-divider__media img {
+  filter: saturate(0.87) contrast(1.03);
+}
+.photo-divider--framed {
+  height: clamp(360px, 72vw, 560px);
+}
+.photo-divider__backdrop {
+  overflow: hidden;
+}
+.photo-divider__backdrop img {
+  filter: blur(20px) brightness(0.35) saturate(0.65);
+  transform: scale(1.08);
+}
+.photo-divider--framed .photo-divider__media {
+  inset: 1.2rem auto;
+  left: 50%;
+  width: min(78vw, 410px);
+  overflow: hidden;
+  border: 1px solid rgb(232 196 140 / 52%);
+  box-shadow: 0 12px 50px rgb(12 3 7 / 48%);
+  transform: translateX(-50%);
+}
+.photo-divider--framed .photo-divider__media img {
+  object-fit: contain;
 }
 .photo-divider__shade {
   position: absolute;
+  z-index: 2;
   inset: 0;
   background: linear-gradient(180deg, rgba(26, 3, 10, 0.08), transparent 38%, rgba(26, 3, 10, 0.16));
+  pointer-events: none;
+}
+.photo-divider--framed .photo-divider__shade {
+  background: linear-gradient(
+    90deg,
+    rgb(29 5 12 / 34%),
+    transparent 32%,
+    transparent 68%,
+    rgb(29 5 12 / 34%)
+  );
 }
 .photo-divider__placeholder-note {
   position: absolute;
+  z-index: 3;
   left: 0.85rem;
   bottom: 0.8rem;
   padding: 0.24rem 0.38rem;
@@ -255,8 +300,29 @@ svg {
   .photo-divider {
     height: clamp(420px, 32vw, 500px);
   }
-  .photo-divider--portrait img {
-    object-position: center 70% !important;
+  .photo-divider--framed {
+    height: clamp(440px, 37vw, 560px);
+  }
+  .photo-divider__media img,
+  .photo-divider__backdrop img {
+    object-position: var(--photo-position-desktop, center);
+  }
+  .photo-divider--cinematic .photo-divider__shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(27 5 13 / 58%),
+        rgb(27 5 13 / 22%) 17%,
+        transparent 42%,
+        transparent 58%,
+        rgb(27 5 13 / 23%) 83%,
+        rgb(27 5 13 / 56%)
+      ),
+      linear-gradient(180deg, rgb(20 4 9 / 8%), transparent 45%, rgb(20 4 9 / 9%));
+  }
+  .photo-divider--framed .photo-divider__media {
+    inset-block: 1.4rem;
+    width: min(36vw, 430px);
   }
 }
 @media (max-width: 359px) {

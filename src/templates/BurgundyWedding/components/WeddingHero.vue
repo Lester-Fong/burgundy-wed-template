@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" :class="{ 'hero--daylight': image.tone === 'daylight' }" aria-labelledby="hero-title">
     <picture
       class="hero__backdrop"
       aria-hidden="true"
@@ -28,6 +28,8 @@ defineProps<{
         class="hero__image"
         :src="image.src"
         :alt="image.alt"
+        :width="image.width"
+        :height="image.height"
         :style="{
           '--hero-position-mobile': image.mobilePosition ?? image.position ?? 'center',
           '--hero-position-desktop': image.desktopPosition ?? image.position ?? 'center',

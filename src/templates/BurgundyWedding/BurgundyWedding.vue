@@ -71,23 +71,32 @@ onBeforeUnmount(() => {
         :error="musicError"
         @toggle-music="toggleMusic"
       />
-      <PhotoDivider v-if="content.images.editorial && content.entourage" :image="content.images.editorial" />
+      <PhotoDivider
+        v-if="content.images.entourageDivider && content.entourage"
+        :image="content.images.entourageDivider"
+      />
       <EntourageSection v-if="content.entourage?.groups.length" :content="content.entourage" />
-      <PhotoDivider v-if="content.venues" :image="content.images.garden ?? content.images.hero" />
+      <PhotoDivider
+        v-if="content.venues && content.images.venuesDivider"
+        :image="content.images.venuesDivider"
+      />
       <VenuesSection v-if="content.venues?.items.length" :content="content.venues" />
       <AttireGuide v-if="content.attire" :content="content.attire" />
       <TimelineSection
         v-if="content.timeline?.events.length"
         :content="content.timeline"
-        :image="content.images.garden ?? content.images.hero"
+        :image="content.images.timeline ?? content.images.hero"
       />
       <GiftGuide v-if="content.gifts" :content="content.gifts" />
       <PhotoDivider
-        v-if="content.reminders?.items.length && content.images.editorial"
-        :image="content.images.editorial"
+        v-if="content.reminders?.items.length && content.images.remindersDivider"
+        :image="content.images.remindersDivider"
       />
       <RemindersSection v-if="content.reminders?.items.length" :content="content.reminders" />
-      <PhotoDivider v-if="content.faqs?.length" :image="content.images.hero" variant="portrait" />
+      <PhotoDivider
+        v-if="content.faqs?.length && content.images.faqsDivider"
+        :image="content.images.faqsDivider"
+      />
       <FaqSection v-if="content.faqs?.length" :items="content.faqs" />
       <CountdownSection v-if="content.closing" :date="content.date" :content="content.closing" />
       <WeddingFooter :couple="content.couple" :text="content.footer" :notice="content.prototypeNotice" />

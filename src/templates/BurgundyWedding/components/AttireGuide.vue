@@ -16,13 +16,23 @@ defineProps<{ content: NonNullable<WeddingContent['attire']> }>()
 
       <div class="attire__groups">
         <section
-          v-if="content.sponsorLooks.length || content.sponsorColors.length"
+          v-if="content.sponsorArtwork || content.sponsorLooks.length || content.sponsorColors.length"
           class="attire__group attire__group--sponsors"
           aria-labelledby="attire-sponsors-title"
         >
           <h3 id="attire-sponsors-title">{{ content.sponsorHeading }}</h3>
           <p class="attire__group-intro">{{ content.sponsorCaption }}</p>
-          <div v-if="content.sponsorLooks.length" class="attire__lineup attire__lineup--sponsors">
+          <figure v-if="content.sponsorArtwork" class="attire__sponsor-artwork">
+            <img
+              :src="content.sponsorArtwork.src"
+              :alt="content.sponsorArtwork.alt"
+              :width="content.sponsorArtwork.width"
+              :height="content.sponsorArtwork.height"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div v-else-if="content.sponsorLooks.length" class="attire__lineup attire__lineup--sponsors">
             <figure v-for="look in content.sponsorLooks" :key="look.id" class="attire__look">
               <img
                 :src="look.illustration.src"

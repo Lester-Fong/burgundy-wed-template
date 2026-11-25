@@ -2,3 +2,5 @@
 !.gitignore
 !payment-bdo.png
 !payment-gcash.png
+!photo-*-mobile.webp
+!photo-*-desktop.webp

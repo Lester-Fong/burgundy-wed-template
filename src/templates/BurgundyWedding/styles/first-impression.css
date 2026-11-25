@@ -17,6 +17,18 @@
   width: 100%;
   height: 100%;
 }
+.hero--daylight .hero__image {
+  filter: saturate(0.88) contrast(1.03);
+}
+.hero--daylight .hero__shade {
+  background: linear-gradient(
+    180deg,
+    rgb(48 6 19 / 88%) 0%,
+    rgb(48 6 19 / 70%) 31%,
+    rgb(48 6 19 / 13%) 62%,
+    rgb(28 5 12 / 15%) 100%
+  );
+}
 .hero__backdrop {
   display: none;
 }
@@ -169,6 +181,11 @@
       linear-gradient(90deg, rgba(12, 8, 9, 0.5), transparent 28%, transparent 72%, rgba(12, 8, 9, 0.5)),
       linear-gradient(180deg, rgba(8, 6, 7, 0.35), rgba(8, 6, 7, 0.12) 43%, transparent 70%);
   }
+  .hero--daylight .hero__shade {
+    background:
+      linear-gradient(180deg, rgb(48 6 19 / 86%), rgb(48 6 19 / 60%) 28%, transparent 58%),
+      linear-gradient(90deg, rgb(21 5 11 / 40%), transparent 25%, transparent 75%, rgb(21 5 11 / 40%));
+  }
   .hero__content {
     position: relative;
     top: auto;
@@ -179,7 +196,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(1.5rem, 2.4vw, 2.25rem);
+    gap: clamp(0.7rem, 1.1vw, 1rem);
     width: min(calc(100% - 2rem), 820px);
     max-width: none;
     padding-top: clamp(4rem, 7vw, 7rem);
@@ -198,7 +215,7 @@
     font-size: clamp(7rem, 10vw, 10rem);
     font-weight: 500;
     letter-spacing: -0.14em;
-    line-height: 1.18;
+    line-height: 1.08;
     text-shadow:
       0 1px 0 #fff0c2,
       0 4px 22px rgba(10, 5, 5, 0.6);
@@ -211,7 +228,7 @@
     gap: 0.14em;
     font-size: clamp(2.25rem, 3.6vw, 4rem);
     letter-spacing: -0.04em;
-    line-height: 1.18;
+    line-height: 1.1;
   }
   .hero__names span {
     white-space: nowrap;
@@ -227,7 +244,7 @@
     margin-top: 0;
     font-size: clamp(1rem, 1.35vw, 1.4rem);
     letter-spacing: 0.18em;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 }
 

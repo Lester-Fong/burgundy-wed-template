@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { weddingContent } from '../src/data/wedding-content.ts'
 import { safeGoogleMapsUrl } from '../src/utils/links.ts'
 
-test('confirmed couple, date, venues, and pending wedding time are represented accurately', () => {
+test('confirmed couple, date, venues, and date-only countdown are represented accurately', () => {
   assert.deepEqual(weddingContent.couple, {
     first: 'Jamie',
     second: 'Emiliano',
@@ -19,10 +19,10 @@ test('confirmed couple, date, venues, and pending wedding time are represented a
     timeZone: 'Asia/Manila',
     display: 'February 22, 2027',
     day: 'Monday',
-    timeConfirmed: false,
+    timeConfirmed: true,
     countdownTarget: {
       iso: '2027-02-22T00:00:00+08:00',
-      note: 'Counting down to our wedding day. Ceremony time to be announced.',
+      note: 'Counting down to our wedding day. The ceremony begins at 4:00 PM.',
     },
   })
   assert.equal(weddingContent.venues.items[0].name, 'San Antonio De Padua Parish Church')
@@ -159,23 +159,45 @@ test('sponsor and guest watercolor illustrations map to approved colors and ship
   }
 })
 
-test('the six-event program is explicitly sample content and does not confirm the wedding time', () => {
+test('the confirmed five-event program keeps the after party without an invented time', () => {
   const { timeline, date } = weddingContent
-  assert.equal(date.timeConfirmed, false)
-  assert.equal(timeline.provisional, true)
-  assert.equal(timeline.note, 'Sample program — details to be confirmed')
+  assert.equal(date.timeConfirmed, true)
+  assert.equal(timeline.provisional, false)
+  assert.equal(timeline.note, undefined)
   assert.deepEqual(
     timeline.events.map(({ time, title }) => [time, title]),
     [
-      ['2:30 PM', 'Gathering'],
-      ['3:00 PM', 'Ceremony'],
+      ['3:00 PM', 'Gathering'],
+      ['4:00 PM', 'Ceremony'],
       ['5:00 PM', 'Cocktails'],
       ['6:00 PM', 'Reception'],
-      ['7:00 PM', 'Dinner'],
-      ['9:00 PM', 'After Party'],
+      ['After the program', 'After Party'],
     ],
   )
-  assert.equal(new Set(timeline.events.map((event) => event.id)).size, 6)
+  assert.equal(timeline.events[4].detail, 'Once the host’s program concludes')
+  assert.equal(new Set(timeline.events.map((event) => event.id)).size, 5)
+})
+
+test('six client photos use distinct optimized assets in their intended order', () => {
+  const root = fileURLToPath(new URL('../', import.meta.url))
+  const slots = [
+    weddingContent.images.hero,
+    weddingContent.images.entourageDivider,
+    weddingContent.images.venuesDivider,
+    weddingContent.images.timeline,
+    weddingContent.images.remindersDivider,
+    weddingContent.images.faqsDivider,
+  ]
+  slots.forEach((photo, index) => {
+    assert.match(photo.src, new RegExp(`/photo-${index + 1}-mobile\\.webp$`))
+    assert.match(photo.desktopSrc, new RegExp(`/photo-${index + 1}-desktop\\.webp$`))
+    assert.equal(photo.placeholder, undefined)
+    for (const source of [photo.src, photo.desktopSrc]) {
+      const file = join(root, 'public', source.slice(1))
+      assert.ok(existsSync(file), `${source} is missing`)
+      assert.ok(statSync(file).size < 600_000, `${source} exceeds the photo asset budget`)
+    }
+  })
 })
 
 test('gift preview uses the supplied artwork and locally stored payment QR crops', () => {
@@ -254,7 +276,7 @@ test('closing uses the supplied texture and a date-only Manila countdown without
   assert.equal(closing.background.src, '/images/template/bloody-red.jpg')
   assert.ok(existsSync(join(root, 'public', closing.background.src.slice(1))))
   assert.equal(Date.parse(date.countdownTarget.iso), Date.parse('2027-02-21T16:00:00Z'))
-  assert.equal(date.timeConfirmed, false)
+  assert.equal(date.timeConfirmed, true)
   assert.match(closing.deadlineNote, /announced soon/i)
   assert.doesNotMatch(JSON.stringify(closing), /<form|<input|submit/i)
 })

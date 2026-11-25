@@ -7,12 +7,22 @@ const props = defineProps<{ content: TimelineContent; image: ImageAsset }>()
 const imagePosition = computed(() => ({
   '--timeline-image-mobile': props.image.mobilePosition ?? props.image.position ?? 'center',
   '--timeline-image-desktop': props.image.desktopPosition ?? props.image.position ?? 'center',
+  '--timeline-image-desktop-scale': props.image.desktopScale ?? 1,
+  '--timeline-image-desktop-origin': props.image.desktopTransformOrigin ?? 'center',
 }))
 </script>
 
 <template>
-  <section class="section timeline" aria-labelledby="timeline-title" :style="imagePosition">
-    <img class="timeline__image" :src="image.src" alt="" loading="lazy" decoding="async" />
+  <section
+    class="section timeline"
+    :class="{ 'timeline--portrait-photo': image.presentation === 'timeline-portrait' }"
+    aria-labelledby="timeline-title"
+    :style="imagePosition"
+  >
+    <picture class="timeline__media">
+      <source v-if="image.desktopSrc" media="(min-width: 900px)" :srcset="image.desktopSrc" />
+      <img class="timeline__image" :src="image.src" alt="" loading="lazy" decoding="async" />
+    </picture>
     <div class="timeline__veil" aria-hidden="true"></div>
     <div class="timeline__inner">
       <header class="timeline__header" data-timeline-reveal>

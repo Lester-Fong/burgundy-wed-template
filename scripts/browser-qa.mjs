@@ -108,8 +108,8 @@ for (const width of widths) {
     geometry.heroOutOfView.length ||
     geometry.heroNamesOverflow ||
     geometry.dividerCount !== 4 ||
-    geometry.placeholderPhotoLabels !== 4 ||
-    !geometry.heroPlaceholderLabel ||
+    geometry.placeholderPhotoLabels !== 0 ||
+    geometry.heroPlaceholderLabel ||
     geometry.dividerCaptions ||
     geometry.welcomeHeight < 340 ||
     !geometry.welcomeOrder ||
@@ -197,7 +197,7 @@ if ((await interactionPage.locator('.closing form, .closing input, .closing butt
   failures.push('Closing section unexpectedly contains an RSVP form or action')
 if (
   (await interactionPage
-    .getByText('Counting down to our wedding day. Ceremony time to be announced.')
+    .getByText('Counting down to our wedding day. The ceremony begins at 4:00 PM.')
     .count()) !== 1
 )
   failures.push('Date-only countdown clarification did not render')

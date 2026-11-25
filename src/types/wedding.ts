@@ -6,8 +6,17 @@ export interface ImageAsset {
   desktopSrc?: string
   mobilePosition?: string
   desktopPosition?: string
+  width?: number
+  height?: number
+  /** A portrait can be displayed in a restrained frame instead of a panoramic crop. */
+  presentation?: 'framed' | 'timeline-portrait'
+  /** Optional image-specific color treatment. */
+  tone?: 'daylight' | 'cinematic'
   /** Width ÷ height for an optional intentionally cropped desktop frame. Omit to show the full image. */
   desktopFrameRatio?: number
+  /** Timeline portrait zoom and anchor on desktop; mobile remains untransformed. */
+  desktopScale?: number
+  desktopTransformOrigin?: string
 }
 
 export interface Person {
@@ -98,6 +107,8 @@ export interface AttireContent {
   guestHeading: string
   guestCaption: string
   notesHeading: string
+  /** Optional approved group artwork; individual looks remain as a fallback. */
+  sponsorArtwork?: FashionIllustration
   sponsorLooks: FashionLook[]
   guestLooks: FashionLook[]
   sponsorColors: AttireRoleColor[]
@@ -195,7 +206,14 @@ export interface WeddingContent {
   }
   introduction: string
   welcome?: WelcomeContent
-  images: { hero: ImageAsset; editorial?: ImageAsset; garden?: ImageAsset }
+  images: {
+    hero: ImageAsset
+    entourageDivider?: ImageAsset
+    venuesDivider?: ImageAsset
+    timeline?: ImageAsset
+    remindersDivider?: ImageAsset
+    faqsDivider?: ImageAsset
+  }
   entourage?: { intro?: string; groups: EntourageGroup[] }
   venues?: { intro?: string; items: Venue[]; parkingNote?: string }
   attire?: AttireContent

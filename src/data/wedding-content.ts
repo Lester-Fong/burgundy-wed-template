@@ -13,7 +13,6 @@ const guests = {
 } satisfies Record<string, HexColor>
 
 export const weddingContent: WeddingContent = {
-  prototypeNotice: 'Client preview · celebration details pending',
   couple: {
     first: 'Jamie',
     second: 'Emiliano',
@@ -27,10 +26,10 @@ export const weddingContent: WeddingContent = {
     display: 'February 22, 2027',
     day: 'Monday',
     timeConfirmed: true,
-    // Keep the date-only countdown at midnight in Manila, not the 4:00 PM ceremony.
+    // The ceremony begins at 4:00 PM in Manila (08:00 UTC).
     countdownTarget: {
-      iso: '2027-02-22T00:00:00+08:00',
-      note: 'Counting down to our wedding day. The ceremony begins at 4:00 PM.',
+      iso: '2027-02-22T16:00:00+08:00',
+      note: 'Ceremony begins at 4:00 PM Philippine time.',
     },
   },
   introduction: 'With full hearts, we invite you to celebrate the beginning of our forever.',
@@ -475,13 +474,12 @@ export const weddingContent: WeddingContent = {
   ],
   closing: {
     background: { src: '/images/template/bloody-red.jpg', alt: '' },
-    heading: 'Kindly RSVP',
+    heading: 'Until We Celebrate',
     privacyHeading: 'Privacy Notice',
     privacyText:
       'We kindly ask that you keep this invitation private, as we will be celebrating our vows with only our closest loved ones.',
-    countdownIntro: 'Join us as we count the days ’til our wedding day!',
-    reminder: 'Please confirm your attendance once RSVP instructions are finalized.',
-    deadlineNote: 'RSVP details and confirmation deadline will be announced soon.',
+    countdownIntro: 'The celebration begins in',
+    message: 'We look forward to celebrating this special day with you.',
   },
   music: {
     src: '/audio/original-ambient-demo.mp3',
@@ -489,5 +487,8 @@ export const weddingContent: WeddingContent = {
     preferredTitle: 'Risk It All',
     preferredArtist: 'Bruno Mars',
   },
-  footer: 'Made with love, for a day to remember.',
+  footer: {
+    attribution: 'Wedding website crafted by',
+    brand: 'Imbitado',
+  },
 }

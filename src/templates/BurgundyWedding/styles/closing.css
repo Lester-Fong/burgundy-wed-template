@@ -1,10 +1,10 @@
 .closing {
   --closing-gold: #fbd798;
   display: grid;
-  min-height: 100svh;
+  min-height: 80svh;
   place-items: center;
   overflow: hidden;
-  padding-block: clamp(2.75rem, 5vw, 4rem);
+  padding: clamp(3.25rem, 5vw, 4.5rem) 1.5rem;
   background: var(--burgundy-dark);
   color: var(--closing-gold);
   text-align: center;
@@ -44,13 +44,13 @@
   z-index: 2;
   display: grid;
   justify-items: center;
-  width: min(100%, 43rem);
+  width: min(100%, 40rem);
 }
 
 .closing__opening h2 {
   margin: 0;
   font-family: 'Italiana', Georgia, serif;
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1.1;
@@ -66,31 +66,17 @@
   opacity: 0.72;
 }
 
-.closing__opening h3 {
-  margin: 0;
-  font-family: var(--display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.1;
-}
-
-.closing__opening p,
 .closing__intro,
-.closing__message p {
+.closing__message {
   font-family: var(--display);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  line-height: 1.4;
-}
-
-.closing__opening p {
-  max-width: 28rem;
-  margin: 0.35rem auto 0;
+  line-height: 1.35;
 }
 
 .closing__countdown {
   width: 100%;
-  margin-top: clamp(2rem, 4vw, 3.2rem);
+  margin-top: clamp(1.4rem, 3vw, 2.25rem);
 }
 
 .closing__intro {
@@ -112,7 +98,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   width: min(100%, 37rem);
-  margin: 1.35rem auto 0;
+  margin: 1.15rem auto 0;
 }
 
 .closing__unit {
@@ -168,38 +154,44 @@
 }
 
 .closing__message {
-  max-width: 28rem;
-  margin-top: clamp(2rem, 4vw, 3.2rem);
+  max-width: 31rem;
+  margin: clamp(1.6rem, 3vw, 2.25rem) auto 0;
 }
 
-.closing__message p {
+.closing__privacy {
+  max-width: 26rem;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  color: #eacfa8;
+}
+
+.closing__privacy h3 {
   margin: 0;
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.closing__message .closing__deadline {
-  margin-top: 0.45rem;
-  font-size: 1.25rem;
-  font-weight: 600;
+.closing__privacy p {
+  margin: 0.25rem 0 0;
+  font-family: var(--display);
+  font-size: 0.9375rem;
+  line-height: 1.35;
 }
 
 @media (max-width: 600px) {
   .closing {
-    padding-inline: 1.5rem;
-    padding-block: 3.25rem;
+    min-height: 80svh;
+    padding: 2.75rem 1.5rem 4.25rem;
   }
 
-  .closing__opening h3 {
-    font-size: 1.125rem;
-  }
-
-  .closing__opening p,
   .closing__intro,
-  .closing__message p {
+  .closing__message {
     font-size: 1rem;
   }
 
   .closing__countdown {
-    margin-top: 2.25rem;
+    margin-top: 1.75rem;
   }
 
   .closing__timer {
@@ -220,17 +212,17 @@
   }
 
   .closing__message {
-    margin-top: 2.25rem;
+    margin-top: 1.75rem;
   }
 
-  .closing__message .closing__deadline {
-    font-size: 1rem;
+  .closing__privacy {
+    margin-top: 1.75rem;
   }
 }
 
 @media (max-width: 359px) {
   .closing {
-    padding-block: 2.5rem;
+    padding-block: 2.5rem 4rem;
   }
 
   .closing__opening h2 {
@@ -243,6 +235,6 @@
 
   .closing__countdown,
   .closing__message {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 }

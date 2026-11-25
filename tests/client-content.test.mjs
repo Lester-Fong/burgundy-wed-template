@@ -5,8 +5,9 @@ import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { weddingContent } from '../src/data/wedding-content.ts'
 import { safeGoogleMapsUrl } from '../src/utils/links.ts'
+import { countdownTo } from '../src/utils/dates.ts'
 
-test('confirmed couple, date, venues, and date-only countdown are represented accurately', () => {
+test('confirmed couple, ceremony countdown, and venues are represented accurately', () => {
   assert.deepEqual(weddingContent.couple, {
     first: 'Jamie',
     second: 'Emiliano',
@@ -21,8 +22,8 @@ test('confirmed couple, date, venues, and date-only countdown are represented ac
     day: 'Monday',
     timeConfirmed: true,
     countdownTarget: {
-      iso: '2027-02-22T00:00:00+08:00',
-      note: 'Counting down to our wedding day. The ceremony begins at 4:00 PM.',
+      iso: '2027-02-22T16:00:00+08:00',
+      note: 'Ceremony begins at 4:00 PM Philippine time.',
     },
   })
   assert.equal(weddingContent.venues.items[0].name, 'San Antonio De Padua Parish Church')
@@ -270,13 +271,20 @@ test('FAQ keeps four static answers and uses the approved guest attire palette',
   assert.doesNotMatch(dressCode, /maroon|black|gold/i)
 })
 
-test('closing uses the supplied texture and a date-only Manila countdown without a form', () => {
-  const { closing, date } = weddingContent
+test('closing targets 4 PM Manila time and contains no RSVP text or action', () => {
+  const { closing, date, footer } = weddingContent
   const root = fileURLToPath(new URL('../', import.meta.url))
   assert.equal(closing.background.src, '/images/template/bloody-red.jpg')
   assert.ok(existsSync(join(root, 'public', closing.background.src.slice(1))))
-  assert.equal(Date.parse(date.countdownTarget.iso), Date.parse('2027-02-21T16:00:00Z'))
+  assert.equal(Date.parse(date.countdownTarget.iso), Date.parse('2027-02-22T08:00:00Z'))
+  assert.equal(countdownTo(date.countdownTarget.iso, Date.parse('2027-02-22T07:59:59Z')).seconds, 1)
+  assert.equal(countdownTo(date.countdownTarget.iso, Date.parse('2027-02-22T08:00:00Z')).complete, true)
   assert.equal(date.timeConfirmed, true)
-  assert.match(closing.deadlineNote, /announced soon/i)
-  assert.doesNotMatch(JSON.stringify(closing), /<form|<input|submit/i)
+  assert.equal(closing.heading, 'Until We Celebrate')
+  assert.equal(closing.message, 'We look forward to celebrating this special day with you.')
+  assert.doesNotMatch(
+    JSON.stringify(closing),
+    /RSVP|confirm your attendance|announced soon|<form|<input|submit/i,
+  )
+  assert.deepEqual(footer, { attribution: 'Wedding website crafted by', brand: 'Imbitado' })
 })

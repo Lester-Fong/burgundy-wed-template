@@ -99,7 +99,7 @@ onBeforeUnmount(() => {
       />
       <FaqSection v-if="content.faqs?.length" :items="content.faqs" />
       <CountdownSection v-if="content.closing" :date="content.date" :content="content.closing" />
-      <WeddingFooter :couple="content.couple" :text="content.footer" :notice="content.prototypeNotice" />
+      <WeddingFooter :couple="content.couple" :content="content.footer" />
     </main>
     <FloatingMusicPlayer v-if="content.music" ref="music" :music="content.music" :visible="opened" />
   </div>

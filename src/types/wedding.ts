@@ -176,8 +176,14 @@ export interface ClosingContent {
   privacyHeading: string
   privacyText: string
   countdownIntro: string
-  reminder: string
-  deadlineNote: string
+  message: string
+}
+
+export interface FooterContent {
+  attribution: string
+  brand: string
+  /** Set only after the official Imbitado destination is available and verified. */
+  brandUrl?: string
 }
 
 export interface WelcomeContent {
@@ -188,7 +194,6 @@ export interface WelcomeContent {
 }
 
 export interface WeddingContent {
-  prototypeNotice?: string
   couple: {
     first: string
     second: string
@@ -223,5 +228,5 @@ export interface WeddingContent {
   faqs?: Faq[]
   closing?: ClosingContent
   music?: { src: string; title: string; preferredTitle?: string; preferredArtist?: string }
-  footer?: string
+  footer?: FooterContent
 }

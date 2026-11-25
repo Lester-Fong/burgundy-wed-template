@@ -42,19 +42,17 @@ onBeforeUnmount(() => {
       <div class="closing__opening" data-closing-reveal>
         <h2 id="closing-title">{{ content.heading }}</h2>
         <span class="closing__rule" aria-hidden="true"></span>
-        <h3>{{ content.privacyHeading }}</h3>
-        <p>{{ content.privacyText }}</p>
       </div>
 
       <div class="closing__countdown" data-closing-reveal>
         <p class="closing__intro">{{ content.countdownIntro }}</p>
-        <time class="closing__date" :datetime="date.iso">{{ date.display }}</time>
+        <time class="closing__date" :datetime="targetIso ?? date.iso">{{ date.display }}</time>
         <div
           v-if="remaining && !remaining.complete"
           class="closing__timer"
           role="timer"
           aria-live="off"
-          aria-label="Time remaining until the start of the wedding day"
+          aria-label="Time remaining until the wedding ceremony"
         >
           <div class="closing__unit">
             <strong>{{ remaining.days }}</strong
@@ -74,15 +72,17 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <p v-else-if="remaining?.complete" class="closing__complete" role="status">{{ completedMessage }}</p>
-        <p v-else class="closing__complete">Countdown details will be shared soon.</p>
+        <p v-else class="closing__complete">We look forward to celebrating with you.</p>
         <p v-if="date.countdownTarget?.note && !remaining?.complete" class="closing__target-note">
           {{ date.countdownTarget.note }}
         </p>
       </div>
 
-      <div class="closing__message" data-closing-reveal>
-        <p>{{ content.reminder }}</p>
-        <p class="closing__deadline">{{ content.deadlineNote }}</p>
+      <p class="closing__message" data-closing-reveal>{{ content.message }}</p>
+
+      <div class="closing__privacy" data-closing-reveal>
+        <h3>{{ content.privacyHeading }}</h3>
+        <p>{{ content.privacyText }}</p>
       </div>
     </div>
   </section>

@@ -1,6 +1,6 @@
-# Burgundy Wedding — standalone visual prototype
+# Burgundy Wedding — standalone website
 
-An original, mobile-first Vue 3 wedding invitation preview for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, entourage roster, program, and six civil-wedding photographs are client-provided. Several other details remain pending. The photographs document their earlier civil wedding; the February 22, 2027 celebration is the convalidation of their marriage.
+An original, mobile-first Vue 3 wedding invitation for Jamie and Emiliano Cosio. The couple, date, venue names and addresses, attire palettes, entourage roster, program, and six civil-wedding photographs are client-provided. Several other details remain pending. The photographs document their earlier civil wedding; the February 22, 2027 celebration is the convalidation of their marriage.
 
 ## Run
 
@@ -15,7 +15,7 @@ npm run preview
 npm run qa:browser
 ```
 
-`npm run build` produces a standalone static `dist/` suitable for Vercel or Netlify. For browser QA, start `npm run preview -- --port 4173` before `npm run qa:browser`; screenshots are saved locally. The page has RSVP reminder copy but no RSVP form, submission, backend, database, CMS, or SaaS connection.
+`npm run build` produces a standalone static `dist/` suitable for Vercel or Netlify. For browser QA, start `npm run preview -- --port 4173` before `npm run qa:browser`; screenshots are saved locally. The page has no RSVP copy, form, submission, backend, database, CMS, or SaaS connection.
 
 ## Architecture
 
@@ -76,7 +76,7 @@ The owner-provided screenshots are the primary visual reference. The Canva page 
 - Rhythm: envelope opening, portrait-led hero, photographic interludes, then information sections.
 - Photography: romantic, cinematic, warm and low-key.
 - Motifs: restrained gold rules, monogram, arches, stationery, and botanical line work.
-- Interaction: tap-to-open envelope, optional music, venue links and QR, static FAQs, and a wedding-day countdown.
+- Interaction: tap-to-open envelope, optional music, venue links and QR, static FAQs, and a ceremony countdown.
 - Mobile: a narrow invitation-like vertical sequence, with generous section spacing and large titles.
 
 Original refinement here: stronger hierarchy on desktop, clearer information cards, more breathing room, visible pending states, keyboard-first controls, reduced-motion support, and an unobtrusive persistent music button.
@@ -125,7 +125,7 @@ Original refinement here: stronger hierarchy on desktop, clearer information car
 
 ## 02B.3 client data and attire
 
-- The couple, date, venue names and addresses, and supplied wedding-party names now come from the typed content object. The ceremony time remains unknown. The closing countdown uses an explicitly provisional target of midnight at the start of February 22, 2027 in Asia/Manila; it does not present that time as the ceremony time. Gift details and other unconfirmed guest guidance are marked pending.
+- The couple, date, venue names and addresses, and supplied wedding-party names come from the typed content object. The closing countdown targets the confirmed ceremony time of 4:00 PM on February 22, 2027 in Asia/Manila. Set `footer.brandUrl` to a verified HTTPS Imbitado site or business page when ready; the brand is plain text until then.
 - The Attire Guide follows the reference's centered heading and two illustrated groups. Twelve wedding-party assignments are shown in a compact legend; the separate guest palette has three more prominent swatches. The supplied hex values are dress-code data and do not change the burgundy template theme.
 - The original `FashionFigure.vue` SVG prototype is retained only as a historical component and test fixture. It is no longer rendered by the website.
 - The two direct client Maps links resolve to the ceremony and reception venues. Browser review decodes both QR images and compares each with its corresponding safe new-tab button.
@@ -157,4 +157,4 @@ The original Wedding Program used a fictional garden photograph and six provisio
 
 ## Needed for client-ready content
 
-Supply final gift-wording approval, parking details, RSVP instructions and deadline, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. Confirm the GCash payment recipient in its app and recheck both QR codes before the wedding. The final footer concept is a later milestone.
+Supply final gift-wording approval, parking details, approved venue-specific illustrations, and a legally usable recording if the preferred Bruno Mars song is to replace the current original preview. Confirm the GCash payment recipient in its app and recheck both QR codes before the wedding. Add the official Imbitado link once its landing page is ready.

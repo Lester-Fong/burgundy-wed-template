@@ -187,7 +187,9 @@ if ((await interactionPage.locator('.venue-location__qr img').count()) !== 2)
 if ((await interactionPage.locator('.venue-location__pending').count()) !== 0)
   failures.push('Pending venue QR placeholders remained')
 if ((await interactionPage.locator('.closing__unit').count()) !== 4)
-  failures.push('Date-only wedding countdown did not render four units')
+  failures.push('Ceremony countdown did not render four units')
+if ((await interactionPage.locator('.closing time').getAttribute('datetime')) !== '2027-02-22T16:00:00+08:00')
+  failures.push('Ceremony countdown target is not 4 PM Asia/Manila')
 if (
   (await interactionPage.locator('.closing__background').getAttribute('src')) !==
   '/images/template/bloody-red.jpg'
@@ -196,11 +198,15 @@ if (
 if ((await interactionPage.locator('.closing form, .closing input, .closing button').count()) !== 0)
   failures.push('Closing section unexpectedly contains an RSVP form or action')
 if (
-  (await interactionPage
-    .getByText('Counting down to our wedding day. The ceremony begins at 4:00 PM.')
-    .count()) !== 1
+  /RSVP|confirm your attendance|announced soon/i.test(await interactionPage.locator('.closing').innerText())
 )
-  failures.push('Date-only countdown clarification did not render')
+  failures.push('Closing section contains outdated RSVP wording')
+if (!(await interactionPage.locator('.footer').getByText('Wedding website crafted by Imbitado').isVisible()))
+  failures.push('Final Imbitado footer credit did not render')
+if ((await interactionPage.locator('.footer a').count()) !== 0)
+  failures.push('Footer has a brand link without an approved destination')
+if ((await interactionPage.getByText('Ceremony begins at 4:00 PM Philippine time.').count()) !== 1)
+  failures.push('Ceremony time clarification did not render')
 await interactionPage.locator('audio').evaluate((element) => element.dispatchEvent(new Event('error')))
 if (!(await interactionPage.getByRole('status').getByText('Music is unavailable right now.').isVisible()))
   failures.push('Welcome music error was not surfaced')

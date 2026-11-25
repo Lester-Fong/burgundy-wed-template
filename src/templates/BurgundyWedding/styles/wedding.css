@@ -199,6 +199,19 @@ svg {
   background: linear-gradient(180deg, rgba(26, 3, 10, 0.08), transparent 38%, rgba(26, 3, 10, 0.16));
   pointer-events: none;
 }
+.photo-divider--cinematic .photo-divider__shade {
+  background:
+    linear-gradient(
+      90deg,
+      rgb(27 5 13 / 58%),
+      rgb(27 5 13 / 22%) 17%,
+      transparent 42%,
+      transparent 58%,
+      rgb(27 5 13 / 23%) 83%,
+      rgb(27 5 13 / 56%)
+    ),
+    linear-gradient(180deg, rgb(20 4 9 / 8%), transparent 45%, rgb(20 4 9 / 9%));
+}
 .photo-divider--framed .photo-divider__shade {
   background: linear-gradient(
     90deg,
@@ -307,22 +320,14 @@ svg {
   .photo-divider__backdrop img {
     object-position: var(--photo-position-desktop, center);
   }
-  .photo-divider--cinematic .photo-divider__shade {
-    background:
-      linear-gradient(
-        90deg,
-        rgb(27 5 13 / 58%),
-        rgb(27 5 13 / 22%) 17%,
-        transparent 42%,
-        transparent 58%,
-        rgb(27 5 13 / 23%) 83%,
-        rgb(27 5 13 / 56%)
-      ),
-      linear-gradient(180deg, rgb(20 4 9 / 8%), transparent 45%, rgb(20 4 9 / 9%));
-  }
   .photo-divider--framed .photo-divider__media {
     inset-block: 1.4rem;
     width: min(36vw, 430px);
+  }
+}
+@media (max-width: 899px) {
+  .photo-divider--cinematic .photo-divider__media img {
+    transform: scale(1.12);
   }
 }
 @media (max-width: 359px) {

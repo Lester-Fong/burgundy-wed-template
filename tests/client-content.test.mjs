@@ -178,19 +178,19 @@ test('the confirmed five-event program keeps the after party without an invented
   assert.equal(new Set(timeline.events.map((event) => event.id)).size, 5)
 })
 
-test('six client photos use distinct optimized assets in their intended order', () => {
+test('five displayed client photos use distinct optimized assets in their intended order', () => {
   const root = fileURLToPath(new URL('../', import.meta.url))
   const slots = [
-    weddingContent.images.hero,
-    weddingContent.images.entourageDivider,
-    weddingContent.images.venuesDivider,
-    weddingContent.images.timeline,
-    weddingContent.images.remindersDivider,
-    weddingContent.images.faqsDivider,
+    [weddingContent.images.hero, 1],
+    [weddingContent.images.entourageDivider, 2],
+    [weddingContent.images.timeline, 4],
+    [weddingContent.images.remindersDivider, 5],
+    [weddingContent.images.faqsDivider, 6],
   ]
-  slots.forEach((photo, index) => {
-    assert.match(photo.src, new RegExp(`/photo-${index + 1}-mobile\\.webp$`))
-    assert.match(photo.desktopSrc, new RegExp(`/photo-${index + 1}-desktop\\.webp$`))
+  assert.equal(weddingContent.images.venuesDivider, undefined)
+  slots.forEach(([photo, number]) => {
+    assert.match(photo.src, new RegExp(`/photo-${number}-mobile\\.webp$`))
+    assert.match(photo.desktopSrc, new RegExp(`/photo-${number}-desktop\\.webp$`))
     assert.equal(photo.placeholder, undefined)
     for (const source of [photo.src, photo.desktopSrc]) {
       const file = join(root, 'public', source.slice(1))

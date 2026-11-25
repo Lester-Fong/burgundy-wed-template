@@ -85,7 +85,7 @@ Original refinement here: stronger hierarchy on desktop, clearer information car
 
 - The opening uses a burgundy folded-paper envelope, original botanical line work, a wax-style seal, and a viewport-aware top/middle/bottom composition. Both the envelope and primary button open with music; the separate quiet entry remains.
 - The hero contains only the monogram, names, and date. On mobile, text sits in the photograph's dark upper area. On desktop, those three elements form a spaced, centered stack above the couple. The portrait's natural aspect ratio sets the Hero height, and a dark photographic vignette fills the sides.
-- `ImageAsset` accepts optional `desktopSrc`, mobile and desktop focal positions, presentation, tone, and image dimensions. The current client Hero uses a full-frame portrait, and the six photography slots are configured centrally in `wedding-content.ts`.
+- `ImageAsset` accepts optional `desktopSrc`, mobile and desktop focal positions, presentation, tone, and image dimensions. The current client Hero uses a full-frame portrait, and the five displayed photography slots are configured centrally in `wedding-content.ts`.
 - Section headings and supporting text reveal once on scroll with a small upward translation and stagger. The presentation layer owns the observer; sections do not depend on application state.
 - Local before/after review images are in `screenshots/02a-before/` and `screenshots/02a-after/`. These screenshots are ignored by Git. The `before` folder preserves the 01 baseline; recapture the refined version while the preview server is running with `node scripts/capture-visual-review.mjs after`.
 
@@ -148,7 +148,7 @@ The original Wedding Program used a fictional garden photograph and six provisio
 
 ## Assets and licenses
 
-- The three photographs under `public/images/prototype/` were generated originally for an earlier prototype with OpenAI image generation. They depict fictional people and do not use the reference site's images. The live page now uses six client-supplied civil-wedding photographs; the old prototype images are unused historical assets.
+- The three photographs under `public/images/prototype/` were generated originally for an earlier prototype with OpenAI image generation. They depict fictional people and do not use the reference site's images. The live page now uses five client-supplied civil-wedding photographs; the seated bridal portrait remains an unused client asset after the Venues divider was removed.
 - `public/images/template/bloody-red.jpg` is the owner-supplied closing background. Its publication rights should be confirmed before release.
 - All ornaments, the venue concept drawings, the retired inline fashion figures, and the floral drawing are original SVG/CSS assets or component markup. The production fashion collection is original generated watercolor artwork, not copied from the reference site.
 - `public/audio/original-ambient-demo.mp3` is a smaller encoding of `artwork/audio/original-ambient-demo-source.wav`. Confirm the source recording's usage rights with its provider before client publication.

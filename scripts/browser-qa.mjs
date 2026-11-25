@@ -107,7 +107,7 @@ for (const width of widths) {
     geometry.missingImages.length ||
     geometry.heroOutOfView.length ||
     geometry.heroNamesOverflow ||
-    geometry.dividerCount !== 4 ||
+    geometry.dividerCount !== 3 ||
     geometry.placeholderPhotoLabels !== 0 ||
     geometry.heroPlaceholderLabel ||
     geometry.dividerCaptions ||

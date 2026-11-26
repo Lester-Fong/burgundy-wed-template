@@ -237,7 +237,7 @@ export const weddingContent: WeddingContent = {
             heading: 'Candle sponsors',
             people: [{ name: 'Mr. Premitivo Madrid' }, { name: 'Mrs. Josie Madrid' }],
           },
-          { heading: 'Aras sponsor', people: [{ name: 'Russ Ignacio' }] },
+          { heading: 'Aras sponsor', people: [{ name: 'Mr. Russ Ignacio' }] },
         ],
       },
       {
@@ -440,10 +440,7 @@ export const weddingContent: WeddingContent = {
       {
         id: 'photos',
         title: 'Snap & share!',
-        paragraphs: [
-          'Once the ceremony ends, feel free to take and post photos.',
-          "Don't forget to tag your moments using our wedding hashtag so we can enjoy them too!",
-        ],
+        paragraphs: ['Once the ceremony ends, feel free to take and post photos.'],
       },
     ],
   },

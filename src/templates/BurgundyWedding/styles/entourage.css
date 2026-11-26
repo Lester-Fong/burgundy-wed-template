@@ -195,7 +195,8 @@
   }
 
   .entourage__paired-row .entourage__name {
-    font-size: clamp(0.82rem, 3.65vw, 0.92rem);
+    font-size: clamp(0.75rem, 3.2vw, 0.8125rem);
+    letter-spacing: 0;
     line-height: 1.13;
     overflow-wrap: normal;
     word-break: normal;
@@ -208,7 +209,8 @@
   }
 
   .entourage__names--ceremonial-pair .entourage__name {
-    font-size: clamp(0.82rem, 3.65vw, 0.92rem);
+    font-size: clamp(0.75rem, 3.2vw, 0.8125rem);
+    letter-spacing: 0;
     line-height: 1.08;
     overflow-wrap: normal;
   }

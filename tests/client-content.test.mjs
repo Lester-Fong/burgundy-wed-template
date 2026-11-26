@@ -118,7 +118,7 @@ test('latest client entourage roster keeps parent, sponsor, attendant, and cerem
   assert.deepEqual(name('Veil sponsors'), ['Mr. Yoly Guro', 'Mrs. Ethelmira Guro'])
   assert.deepEqual(name('Cord sponsors'), ['Mr. Sonny Cosio', 'Mrs. Josephine Cosio'])
   assert.deepEqual(name('Candle sponsors'), ['Mr. Premitivo Madrid', 'Mrs. Josie Madrid'])
-  assert.deepEqual(name('Aras sponsor'), ['Russ Ignacio'])
+  assert.deepEqual(name('Aras sponsor'), ['Mr. Russ Ignacio'])
   assert.deepEqual(name('Ring bearer'), ['Elin Noah'])
   assert.deepEqual(name('Bible bearer'), ['Robin Amigo'])
   assert.deepEqual(name('Flower girl'), ['Ran Long Yang'])
@@ -247,7 +247,7 @@ test('reminders use the approved ornament with provisional wording and no unconf
     [
       ['Please arrive early!', 2],
       ['Celebrate with us!', 2],
-      ['Snap & share!', 2],
+      ['Snap & share!', 1],
     ],
   )
   assert.equal(new Set(reminders.items.map((item) => item.id)).size, 3)

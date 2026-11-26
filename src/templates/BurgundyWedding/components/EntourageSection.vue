@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import type { WeddingContent } from '../../../types/wedding'
+import type { EntourageColumn, WeddingContent } from '../../../types/wedding'
 defineProps<{ content: NonNullable<WeddingContent['entourage']> }>()
+
+const pairedRows = (columns: [EntourageColumn, EntourageColumn]) =>
+  Array.from({ length: Math.max(columns[0].people.length, columns[1].people.length) }, (_, index) => [
+    columns[0].people[index],
+    columns[1].people[index],
+  ])
 </script>
 
 <template>
@@ -31,7 +37,7 @@ defineProps<{ content: NonNullable<WeddingContent['entourage']> }>()
           <template v-else-if="group.layout === 'paired'">
             <p v-if="group.description" class="entourage__description">{{ group.description }}</p>
             <h3 v-if="group.heading" class="entourage__role">{{ group.heading }}</h3>
-            <div class="entourage__pair">
+            <div class="entourage__pair entourage__pair--desktop">
               <div v-for="(column, index) in group.columns" :key="index" class="entourage__column">
                 <h3 v-if="!group.heading && column.heading" class="entourage__role">
                   {{ column.heading }}
@@ -47,6 +53,33 @@ defineProps<{ content: NonNullable<WeddingContent['entourage']> }>()
                 </ul>
               </div>
             </div>
+            <div class="entourage__pair-mobile">
+              <div
+                v-if="group.columns.some((column) => column.heading || column.description)"
+                class="entourage__pair-headings"
+              >
+                <div v-for="(column, index) in group.columns" :key="index" class="entourage__pair-heading">
+                  <h3 v-if="!group.heading && column.heading" class="entourage__role">
+                    {{ column.heading }}
+                  </h3>
+                  <h4 v-else-if="column.heading" class="entourage__role entourage__role--sub">
+                    {{ column.heading }}
+                  </h4>
+                  <p v-if="column.description" class="entourage__description">{{ column.description }}</p>
+                </div>
+              </div>
+              <div class="entourage__paired-rows">
+                <div
+                  v-for="(row, index) in pairedRows(group.columns)"
+                  :key="index"
+                  class="entourage__paired-row"
+                >
+                  <span v-for="(person, side) in row" :key="side" class="entourage__name">
+                    {{ person?.name ?? '' }}
+                  </span>
+                </div>
+              </div>
+            </div>
           </template>
 
           <template v-else>
@@ -56,7 +89,10 @@ defineProps<{ content: NonNullable<WeddingContent['entourage']> }>()
               <div v-for="role in group.roles" :key="role.heading" class="entourage__chapter-role">
                 <h4 class="entourage__role entourage__role--sub">{{ role.heading }}</h4>
                 <p v-if="role.description" class="entourage__description">{{ role.description }}</p>
-                <ul class="entourage__names">
+                <ul
+                  class="entourage__names"
+                  :class="{ 'entourage__names--ceremonial-pair': role.people.length === 2 }"
+                >
                   <li v-for="person in role.people" :key="person.name" class="entourage__name">
                     {{ person.name }}
                   </li>

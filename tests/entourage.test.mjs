@@ -27,7 +27,7 @@ test('entourage renders ordered roles when optional categories are omitted', asy
           id: 'attendants',
           layout: 'paired',
           columns: [
-            { heading: 'Best man', people: [{ name: 'Mr. Luis Rivera' }] },
+            { heading: 'Best man', people: [{ name: 'Mr. Luis Rivera' }, { name: 'Mr. Paolo Rivera' }] },
             { heading: 'Maid of honor', people: [{ name: 'Ms. Bea Santos' }] },
           ],
         },
@@ -52,6 +52,14 @@ test('entourage renders ordered roles when optional categories are omitted', asy
     assert.match(html, /To share words of joy/)
     assert.ok(html.indexOf('Elena Rivera') < html.indexOf('Tomas Rivera'))
     assert.ok(html.indexOf('Best man') < html.indexOf('Maid of honor'))
+    const mobileRows = [...html.matchAll(/<div class="entourage__paired-row">([\s\S]*?)<\/div>/g)].map(
+      (match) => match[1],
+    )
+    assert.equal(mobileRows.length, 2)
+    assert.match(mobileRows[0], /Mr\. Luis Rivera[\s\S]*Ms\. Bea Santos/)
+    assert.match(mobileRows[1], /Mr\. Paolo Rivera/)
+    assert.equal((mobileRows[1].match(/class="entourage__name"/g) ?? []).length, 2)
+    assert.doesNotMatch(mobileRows[1], /Bea Santos/)
     assert.ok(html.indexOf('Ceremony helpers') < html.indexOf('Readers'))
     assert.doesNotMatch(html, /Secondary sponsors|Flower girls|In loving memory/)
   } finally {

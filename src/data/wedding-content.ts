@@ -149,11 +149,13 @@ export const weddingContent: WeddingContent = {
               { name: 'Mr. Angel Madlangbayan' },
               { name: 'Mr. Belermino Montanez' },
               { name: 'Mr. George Claton' },
+              // The client supplied no surname for Mr. Albert; confirm before publication.
+              { name: 'Mr. Albert' },
             ],
           },
           {
             people: [
-              { name: 'Mrs. Eleonor Hackett' },
+              { name: 'Mrs. Eleanor Hackett' },
               { name: 'Mrs. Vilma Moncada' },
               { name: 'Mrs. Cinderella Diamos' },
               { name: 'Mrs. Luzviminda Sanchez' },
@@ -170,6 +172,7 @@ export const weddingContent: WeddingContent = {
               { name: 'Mrs. Fe S. Madlangbayan' },
               { name: 'Mrs. Dolores Cabrales' },
               { name: 'Mrs. Claton' },
+              { name: 'Ms. Ervie Ann Cosio' },
             ],
           },
         ],
@@ -209,7 +212,7 @@ export const weddingContent: WeddingContent = {
             heading: 'Bridesmaids',
             people: [
               { name: 'Jemeliz Tanola' },
-              { name: 'Melissa Abesamis' },
+              { name: 'Melissa Zarate' },
               { name: 'Ellery Kong' },
               { name: 'Shiela Cepeda' },
               { name: 'Maryrose Diamos' },
@@ -225,14 +228,14 @@ export const weddingContent: WeddingContent = {
         heading: 'Secondary sponsors',
         description: 'To witness and support our union',
         roles: [
-          { heading: 'Veil sponsors', people: [{ name: 'Yoly Guro' }, { name: 'Ethelmira Guro' }] },
+          { heading: 'Veil sponsors', people: [{ name: 'Mr. Yoly Guro' }, { name: 'Mrs. Ethelmira Guro' }] },
           {
             heading: 'Cord sponsors',
-            people: [{ name: 'Sonny Cosio' }, { name: 'Josephine Cosio' }],
+            people: [{ name: 'Mr. Sonny Cosio' }, { name: 'Mrs. Josephine Cosio' }],
           },
           {
             heading: 'Candle sponsors',
-            people: [{ name: 'Primitivo Madrid' }, { name: 'Josie Madrid' }],
+            people: [{ name: 'Mr. Premitivo Madrid' }, { name: 'Mrs. Josie Madrid' }],
           },
           { heading: 'Aras sponsor', people: [{ name: 'Russ Ignacio' }] },
         ],

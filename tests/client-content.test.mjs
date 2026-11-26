@@ -71,9 +71,10 @@ test('latest client entourage roster keeps parent, sponsor, attendant, and cerem
     'Mr. Angel Madlangbayan',
     'Mr. Belermino Montanez',
     'Mr. George Claton',
+    'Mr. Albert',
   ])
   assert.deepEqual(pairNames('principal-sponsors', 1), [
-    'Mrs. Eleonor Hackett',
+    'Mrs. Eleanor Hackett',
     'Mrs. Vilma Moncada',
     'Mrs. Cinderella Diamos',
     'Mrs. Luzviminda Sanchez',
@@ -90,6 +91,7 @@ test('latest client entourage roster keeps parent, sponsor, attendant, and cerem
     'Mrs. Fe S. Madlangbayan',
     'Mrs. Dolores Cabrales',
     'Mrs. Claton',
+    'Ms. Ervie Ann Cosio',
   ])
   assert.deepEqual(pairNames('honor-attendants', 0), ['Jian Angelo Domingo', 'Earvin Mc Laren Cosio'])
   assert.deepEqual(pairNames('honor-attendants', 1), ['Jessa Ramos Cepillo', 'Nelffa Tinumpic'])
@@ -104,7 +106,7 @@ test('latest client entourage roster keeps parent, sponsor, attendant, and cerem
   ])
   assert.deepEqual(pairNames('wedding-party', 1), [
     'Jemeliz Tanola',
-    'Melissa Abesamis',
+    'Melissa Zarate',
     'Ellery Kong',
     'Shiela Cepeda',
     'Maryrose Diamos',
@@ -113,9 +115,9 @@ test('latest client entourage roster keeps parent, sponsor, attendant, and cerem
   ])
   const roles = groups.flatMap((group) => (group.layout === 'chapter' ? group.roles : []))
   const name = (heading) => roles.find((role) => role.heading === heading).people.map((p) => p.name)
-  assert.deepEqual(name('Veil sponsors'), ['Yoly Guro', 'Ethelmira Guro'])
-  assert.deepEqual(name('Cord sponsors'), ['Sonny Cosio', 'Josephine Cosio'])
-  assert.deepEqual(name('Candle sponsors'), ['Primitivo Madrid', 'Josie Madrid'])
+  assert.deepEqual(name('Veil sponsors'), ['Mr. Yoly Guro', 'Mrs. Ethelmira Guro'])
+  assert.deepEqual(name('Cord sponsors'), ['Mr. Sonny Cosio', 'Mrs. Josephine Cosio'])
+  assert.deepEqual(name('Candle sponsors'), ['Mr. Premitivo Madrid', 'Mrs. Josie Madrid'])
   assert.deepEqual(name('Aras sponsor'), ['Russ Ignacio'])
   assert.deepEqual(name('Ring bearer'), ['Elin Noah'])
   assert.deepEqual(name('Bible bearer'), ['Robin Amigo'])

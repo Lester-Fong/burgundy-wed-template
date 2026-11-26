@@ -94,6 +94,10 @@
   align-items: start;
 }
 
+.entourage__pair-mobile {
+  display: none;
+}
+
 .entourage__column {
   min-width: 0;
 }
@@ -130,7 +134,7 @@
 
 @media (max-width: 559px) {
   .entourage.section {
-    padding: 2.6rem clamp(1.15rem, 5vw, 1.6rem) 3rem;
+    padding: 2.6rem clamp(1.15rem, 5vw, 1.6rem) calc(5.25rem + env(safe-area-inset-bottom));
   }
 
   .entourage__inner > h2 {
@@ -143,17 +147,70 @@
   }
 
   .entourage__group + .entourage__group {
-    margin-top: 1.45rem;
+    margin-top: 1.2rem;
   }
 
-  .entourage__pair {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.85rem;
+  .entourage__pair--desktop {
+    display: none;
   }
 
-  .entourage__column:first-child,
-  .entourage__column:last-child {
-    text-align: center;
+  .entourage__pair-mobile {
+    display: block;
+  }
+
+  .entourage__pair-headings,
+  .entourage__paired-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(0.85rem, 4vw, 1.15rem);
+    align-items: start;
+  }
+
+  .entourage__pair-headings {
+    margin-bottom: 0.25rem;
+  }
+
+  .entourage__pair-heading,
+  .entourage__paired-row > * {
+    min-width: 0;
+  }
+
+  .entourage__pair-heading:first-child,
+  .entourage__paired-row > :first-child {
+    text-align: right;
+  }
+
+  .entourage__pair-heading:last-child,
+  .entourage__paired-row > :last-child {
+    text-align: left;
+  }
+
+  .entourage__pair-heading .entourage__role {
+    margin-bottom: 0;
+    font-size: clamp(0.83rem, 3.8vw, 0.98rem);
+  }
+
+  .entourage__paired-row + .entourage__paired-row {
+    margin-top: 0.22rem;
+  }
+
+  .entourage__paired-row .entourage__name {
+    font-size: clamp(0.82rem, 3.65vw, 0.92rem);
+    line-height: 1.13;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .entourage__names--ceremonial-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  .entourage__names--ceremonial-pair .entourage__name {
+    font-size: clamp(0.82rem, 3.65vw, 0.92rem);
+    line-height: 1.08;
+    overflow-wrap: normal;
   }
 
   .entourage__name {

@@ -134,7 +134,7 @@ export const weddingContent: WeddingContent = {
             people: [
               { name: 'Mr. Calvin Hackett' },
               { name: 'Mr. Mario Moncado' },
-              { name: 'Mr. Arman Diamos' },
+              { name: 'Mr. Arnel Diamos' },
               { name: 'Mr. Russel Ramos' },
               { name: 'Mr. Benjie Gamayo' },
               { name: 'Mr. Rolly Ramos' },
@@ -151,6 +151,7 @@ export const weddingContent: WeddingContent = {
               { name: 'Mr. George Claton' },
               // The client supplied no surname for Mr. Albert; confirm before publication.
               { name: 'Mr. Albert' },
+              { name: 'Mr. Eric Hernandez' },
             ],
           },
           {
@@ -173,6 +174,7 @@ export const weddingContent: WeddingContent = {
               { name: 'Mrs. Dolores Cabrales' },
               { name: 'Mrs. Claton' },
               { name: 'Ms. Ervie Ann Cosio' },
+              { name: 'Mrs. Christina Reid' },
             ],
           },
         ],
